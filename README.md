@@ -57,8 +57,6 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 
 #### Both
 * Node.js, npm and nave via the [init/50_node.sh](init/50_node.sh) script
-* Ruby, gems and rbenv via the [init/50_ruby.sh](init/50_ruby.sh) script
-* Vim plugins via the [init/50_vim.sh](init/50_vim.sh) script
 
 ## Hacking my dotfiles
 
@@ -79,8 +77,6 @@ The easiest way to install the XCode Command Line Tools in OSX 10.9+ is to open 
 _Tested in OSX 10.10_
 
 ### Ubuntu Notes
-
-You might want to set up your ubuntu server [like I do it](https://github.com/cowboy/dotfiles/wiki/ubuntu-setup), but then again, you might not.
 
 Either way, you should at least update/upgrade APT with `sudo apt-get -qq update && sudo apt-get -qq dist-upgrade` first.
 
@@ -111,7 +107,7 @@ There's a lot of stuff that requires admin access via `sudo`, so be warned that 
 ### Actual installation (for me)
 
 ```sh
-bash -c "$(curl -fsSL https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
+bash -c "$(curl -fsSL https://bit.ly/whizzzkid-dotfiles)" && source ~/.bashrc
 ```
 
 ## Aliases and Functions
@@ -148,6 +144,7 @@ Check it out:
 (and 15+ years of accumulated crap)
 
 ## License
+For whizzzkid (c) 2015
 Copyright (c) 2014 "Cowboy" Ben Alman  
 Licensed under the MIT license.  
 <http://benalman.com/about/license/>

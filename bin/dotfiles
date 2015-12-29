@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 [[ "$1" == "source" ]] || \
 
-echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
+echo 'Dotfiles - "whizzzkid" Nishant Arora - http://nishantarora.in/'
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
+https://github.com/whizzzkid/dotfiles
 
+Customized for whizzzkid (c) 2015.
 Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
@@ -285,7 +286,7 @@ if [[ ! -d $DOTFILES ]]; then
   new_dotfiles_install=1
   prompt_delay=15
   e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/${github_user:-cowboy}/dotfiles.git $DOTFILES
+  git clone --recursive git://github.com/${github_user:-whizzzkid}/dotfiles.git $DOTFILES
   cd $DOTFILES
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.

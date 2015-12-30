@@ -23,21 +23,24 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-use-tab-instead-of-enter t
+                      auto-completion-enable-company-help-tooltip t)
      better-defaults
      c-c++
+     (colors :variables
+             colors-enable-nyan-cat-progress-bar t)
+     eyebrowse
      emacs-lisp
      git
      go
+     gtags
      html
      javascript
      markdown
      org
      php
      python
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
      spell-checking
      sql
      syntax-checking
@@ -194,11 +197,70 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
-   ;; JS default indentation.
-   js2-basic-offset 2
-   js-indent-level 2
-   json-encoding-default-indentation 2
-   ))
+))
+
+(defun dotspacemacs/config ()
+  "Configuration function.
+   This is called at very end of Spacemacs init after layers customization."
+  (global-company-mode)
+  ;; JS default indentation.
+  (setq js2-basic-offset 2)
+  (setq js-indent-level 2)
+  (setq json-encoding-default-indentation 2)
+  ;; JSX in `web-mode`
+  (add-to-list 'auto-mode-alist '("\\.jsx" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.react.js" . web-mode))
+  (defadvice web-mode-highlight-part (around tweak-jsx activate)
+    (if (equal web-mode-content-type "jsx")
+        (let ((web-mode-enable-part-face nil))
+          ad-do-it)
+      ad-do-it))
+
+  ;; JSX tern support
+  (add-hook 'web-mode-hook '(lambda ()
+                              (when (equal web-mode-content-type "jsx")
+                                (tern-mode t)
+                                (company-mode)
+                                (flycheck-mode)
+                                )))
+  (require 'web-mode)
+  (setq css-indent-offset 2)
+  (setq python-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+
+  (setq flycheck-checkers '(javascript-eslint))
+
+  (require 'flycheck)
+  ;; turn on flychecking globally
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
+  ;; use eslint with web-mode for jsx files
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; disable json-jsonlist checking for json files
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(json-jsonlist)))
+
+  (require 'yasnippet)
+  (add-to-list 'yas-snippet-dirs "~/.my-snippets")
+  (add-hook 'web-mode-hook #'(lambda () (yas-activate-extra-mode 'html-mode)))
+  (yas-global-mode 1)
+  (yas-reload-all)
+
+  (add-hook 'css-mode-hook 'my-css-mode-hook)
+  (add-hook 'web-mode-hook 'my-css-mode-hook)
+  (add-hook 'scss-mode-hook 'my-css-mode-hook)
+  (add-hook 'less-css-mode-hook 'my-css-mode-hook)
+  (defun my-css-mode-hook ()
+    (rainbow-mode 1))
+)
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -221,7 +283,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (auto-complete avy tern go-mode projectile helm-core multiple-cursors yasnippet diminish yaml-mode web-mode web-beautify toc-org tagedit sql-indent smeargle slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode pip-requirements phpunit phpcbf php-extras php-auto-yasnippets org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode hy-mode htmlize helm-pydoc helm-gitignore helm-flyspell helm-css-scss helm-c-yasnippet haml-mode go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org emmet-mode drupal-mode disaster diff-hl cython-mode company-web company-tern company-statistics company-quickhelp company-go company-c-headers company-anaconda company coffee-mode cmake-mode clang-format auto-yasnippet anaconda-mode ac-ispell window-numbering volatile-highlights vi-tilde-fringe spray smooth-scrolling smartparens rainbow-delimiters powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag helm google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link evil-leader evil which-key quelpa package-build use-package bind-key s dash spacemacs-theme))))
+    (rainbow-mode rainbow-identifiers helm-gtags ggtags eyebrowse auto-complete avy tern go-mode projectile helm-core multiple-cursors yasnippet diminish yaml-mode web-mode web-beautify toc-org tagedit sql-indent smeargle slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode pip-requirements phpunit phpcbf php-extras php-auto-yasnippets org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode hy-mode htmlize helm-pydoc helm-gitignore helm-flyspell helm-css-scss helm-c-yasnippet haml-mode go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org emmet-mode drupal-mode disaster diff-hl cython-mode company-web company-tern company-statistics company-quickhelp company-go company-c-headers company-anaconda company coffee-mode cmake-mode clang-format auto-yasnippet anaconda-mode ac-ispell window-numbering volatile-highlights vi-tilde-fringe spray smooth-scrolling smartparens rainbow-delimiters powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag helm google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link evil-leader evil which-key quelpa package-build use-package bind-key s dash spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

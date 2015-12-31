@@ -90,8 +90,6 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light
-                         solarized-light
                          solarized-dark
                          leuven
                          monokai
@@ -197,16 +195,16 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
+   ;; JS Global defaults
+   js2-basic-offset 2
+   js-indent-level 2
+   json-encoding-default-indentation 2
 ))
 
 (defun dotspacemacs/config ()
   "Configuration function.
    This is called at very end of Spacemacs init after layers customization."
   (global-company-mode)
-  ;; JS default indentation.
-  (setq js2-basic-offset 2)
-  (setq js-indent-level 2)
-  (setq json-encoding-default-indentation 2)
   ;; JSX in `web-mode`
   (add-to-list 'auto-mode-alist '("\\.jsx" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.react.js" . web-mode))

@@ -20,8 +20,29 @@ function get_last_modified_js_file_recursive() {
     | cut -d' ' -f2-
 }
 
-function watchfile() {
-  yarn watch --testPathPattern "$(get_last_modified_js_file_recursive | sed -E 's#.*/([^/]+)/([^.]+).*#\1/\2.#')"
+# Global npm modules to install.
+npm_globals=(
+  bower
+  ember-cli
+  grunt-cli
+  grunt-init
+  linken
+  node-inspector
+  tern
+  yo
+)
+
+# Update npm and install global modules.
+function npm_install() {
+  local installed modules
+  e_header "Updating npm"
+  npm update -g npm
+  { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } >/dev/null
+  modules=($(setdiff "${npm_globals[*]}" "${installed[*]}"))
+  if (( ${#modules[@]} > 0 )); then
+    e_header "Installing Npm modules: ${modules[*]}"
+    npm install -g "${modules[@]}"
+  fi
 }
 
 function watchdir() {

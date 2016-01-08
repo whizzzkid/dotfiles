@@ -32,6 +32,7 @@ npm_globals=(
   grunt-init
   linken
   node-inspector
+  tern
   yo
 )
 

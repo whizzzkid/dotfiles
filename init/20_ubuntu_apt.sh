@@ -319,8 +319,22 @@ else
 fi
 
 # Install APT packages.
-installed_apt_packages="$(dpkg --get-selections | grep -v deinstall | awk 'BEGIN{FS="[\t:]"}{print $1}' | uniq)"
-apt_packages=($(setdiff "${apt_packages[*]}" "$installed_apt_packages"))
+packages=(
+  ansible
+  build-essential
+  cowsay
+  git-core
+  htop
+  id3tool
+  libssl-dev
+  mercurial
+  nmap
+  silversearcher-ag
+  sl
+  telnet
+  tree
+  zsh
+)
 
 if (( ${#apt_packages[@]} > 0 )); then
   e_header "Installing APT packages (${#apt_packages[@]})"

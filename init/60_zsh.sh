@@ -1,5 +1,5 @@
 #Ubuntu only.
-is_ubuntu || return 1
+#is_ubuntu || return 1
 
 FONTDIR=$HOME'/powerline-fonts'
 git clone https://github.com/powerline/fonts.git $FONTDIR

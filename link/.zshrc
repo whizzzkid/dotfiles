@@ -3,10 +3,11 @@ if [ -f /etc/profile ]; then
 	source /etc/profile
 fi
 
+# Fonts are just painful.
+export LC_ALL="en_US.UTF-8"
+
 # User specific aliases and functions go here (override system defaults)
 export EDITOR='emacs -nw'
-export P4CONFIG=.p4config
-export P4EDITOR=$EDITOR
 export GIT_EXTERNAL_DIFF=git-gui-diff
 
 setopt share_history
@@ -15,24 +16,13 @@ SAVEHIST=10000
 HISTFILE=~/.history
 setopt APPEND_HISTORY
 
-setopt PROMPT_SUBST
-precmd() { PTEXT=$(echo $PWD | sed -e s/davidmorgan/~/ | sed -e "s#usr/local/google#ulg#")$\ ; print -Pn "\e]0;$PTEXT\a"; }
-PROMPT='$PTEXT'
-preexec() { print -Pn "\e]0;$1\a" }
-
 alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
 
-cdg() {
-   cd ${PWD%/google3*}/google3
-}
-
-echo $PWD | egrep -q '^/home/nishantarora$'
-
 # Path to your oh-my-zsh installation.
-  export ZSH=/usr/local/google/home/nishantarora/.oh-my-zsh
+  export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -82,17 +72,17 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(command-not-found git git-extras history npm nyan pip pylint python sudo )
 
 # User configuration
 
-  export PATH="/usr/local/google/home/nishantarora/.nave/installed/default/bin:/usr/local/google/home/nishantarora/.dotfiles/bin:/usr/local/google/home/nishantarora/.dotfiles/bin:/usr/lib/google-golang/bin:/usr/local/buildtools/java/jdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/home/whizzzkid/.nave/installed/default/bin:/home/whizzzkid/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG="en_US.UTF-8"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -115,10 +105,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-# citc shell info (oh my zsh)
-source "${G4D_LOCATION:-/usr/lib/piper-client/internal}/g4d_lib.sh"
 
 eval "$(echo "_orig_git_prompt_info() {"; declare -f git_prompt_info | tail -n +2)"
 git_prompt_info() {

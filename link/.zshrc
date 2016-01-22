@@ -10,16 +10,32 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR='emacs -nw'
 export GIT_EXTERNAL_DIFF=git-gui-diff
 
+# Command history.
 setopt share_history
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.history
 setopt APPEND_HISTORY
 
+setopt PROMPT_SUBST
+precmd() { PTEXT=$(echo $PWD | sed -e s/nishantarora/~/ | sed -e "s#usr/local/google#ulg#")$\ ; print -Pn "\e]0;$PTEXT\a"; }
+PROMPT='$PTEXT'
+preexec() { print -Pn "\e]0;$1\a" }
+
 alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
+
+#Google Settings
+cdg() {
+   cd ${PWD%/google3*}/google3
+}
+
+echo $PWD | egrep -q '^/home/nishantarora$'
+
+# Default User
+DEFAULT_USER="nishantarora"
 
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.oh-my-zsh
@@ -50,10 +66,10 @@ HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -85,11 +101,11 @@ source $ZSH/oh-my-zsh.sh
 export LANG="en_US.UTF-8"
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='emacs -nw'
+else
+  export EDITOR='emacs -nw'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

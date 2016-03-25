@@ -7,7 +7,6 @@ fi
 export LC_ALL="en_US.UTF-8"
 
 # User specific aliases and functions go here (override system defaults)
-export EDITOR='emacs -nw'
 export GIT_EXTERNAL_DIFF=git-gui-diff
 
 # Command history.
@@ -26,6 +25,7 @@ alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
+alias blaze=bazel
 
 #Google Settings
 cdg() {
@@ -38,7 +38,7 @@ echo $PWD | egrep -q '^/home/nishantarora$'
 DEFAULT_USER="nishantarora"
 
 # Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -92,7 +92,7 @@ plugins=(command-not-found git git-extras history npm nyan pip pylint python sud
 
 # User configuration
 
-export PATH="/home/whizzzkid/.nave/installed/default/bin:/home/whizzzkid/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/home/whizzzkid/bin:/home/whizzzkid/.nave/installed/default/bin:/home/whizzzkid/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -122,11 +122,8 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-eval "$(echo "_orig_git_prompt_info() {"; declare -f git_prompt_info | tail -n +2)"
-git_prompt_info() {
-    if [[ "$(g4d_lib::print_current_client)" =~ ".+:(.+):.+:.+" ]]; then
-        echo "g4:(%{$fg[red]%}$match%{$reset_color%})"
-    else
-        _orig_git_prompt_info
-    fi
-}
+# The next line updates PATH for the Google Cloud SDK.
+source '/home/whizzzkid/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc'

@@ -29,8 +29,7 @@ values."
                       auto-completion-enable-company-help-tooltip t)
      better-defaults
      c-c++
-     (colors :variables
-             colors-enable-nyan-cat-progress-bar t)
+     (colors :variables)
      eyebrowse
      emacs-lisp
      git
@@ -105,7 +104,7 @@ values."
                                :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -155,7 +154,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -267,6 +266,17 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  ;; Google defaults
+  (load-file
+   "/usr/share/emacs/site-lisp/emacs-google-config/devtools/editors/emacs/google.el")
+  (require 'google3)                  ;; magically set paths for compiling google3 code
+  (require 'google3-build)            ;; support for blaze builds
+  (require 'csearch)                  ;; Search the whole Google code base.
+  (require 'google3-build)
+  (setq google-build-system "blaze")
+  (global-set-key "\C-cl" #'google-lint)   ; bind lint to control-c + l
+  (require 'google3-display-coverage)
+  (require 'google3-build-cleaner)
   )
 
 (defun dotspacemacs/user-config ()

@@ -35,7 +35,7 @@ cdg() {
 echo $PWD | egrep -q '^/home/nishantarora$'
 
 # Default User
-DEFAULT_USER="nishantarora"
+export DEFAULT_USER=`whoami`
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -92,8 +92,7 @@ plugins=(command-not-found git git-extras history npm nyan pip pylint python sud
 
 # User configuration
 
-export PATH="/home/whizzzkid/bin:/home/whizzzkid/.nave/installed/default/bin:/home/whizzzkid/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH="/usr/local/google/home/nishantarora/.nave/installed/default/bin:/usr/local/google/home/nishantarora/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 source $ZSH/oh-my-zsh.sh
 

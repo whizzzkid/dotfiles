@@ -3,11 +3,29 @@ if [ -f /etc/profile ]; then
 	source /etc/profile
 fi
 
-# Fonts are just painful.
-export LC_ALL="en_US.UTF-8"
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
-# User specific aliases and functions go here (override system defaults)
+# Theme
+ZSH_THEME="agnoster"
+
+# hyphen-insensitive completion.
+HYPHEN_INSENSITIVE="true"
+
+# Correction.
+ENABLE_CORRECTION="true"
+
+# Waiting
+COMPLETION_WAITING_DOTS="true"
+
+# ZSH plugins.
+plugins=(command-not-found git git-extras history npm nyan pip pylint python sudo )
+
+# User configuration
+export LC_ALL="en_US.UTF-8"
 export GIT_EXTERNAL_DIFF=git-gui-diff
+export DEFAULT_USER=`whoami`
+export PATH="/usr/local/google/home/nishantarora/.nave/installed/default/bin:/usr/local/google/home/nishantarora/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Command history.
 setopt share_history
@@ -16,11 +34,7 @@ SAVEHIST=10000
 HISTFILE=~/.history
 setopt APPEND_HISTORY
 
-setopt PROMPT_SUBST
-precmd() { PTEXT=$(echo $PWD | sed -e s/nishantarora/~/ | sed -e "s#usr/local/google#ulg#")$\ ; print -Pn "\e]0;$PTEXT\a"; }
-PROMPT='$PTEXT'
-preexec() { print -Pn "\e]0;$1\a" }
-
+#Aliases
 alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
@@ -28,71 +42,17 @@ alias zshrc="source ~/.zshrc; cd ~-"
 alias blaze=bazel
 
 #Google Settings
+setopt PROMPT_SUBST
+precmd() { PTEXT=$(echo $PWD | sed -e s/nishantarora/~/ | sed -e "s#usr/local/google#ulg#")$\ ; print -Pn "\e]0;$PTEXT\a"; }
+PROMPT='$PTEXT'
+preexec() { print -Pn "\e]0;$1\a" }
+
 cdg() {
-   cd ${PWD%/google3*}/google3
+  cd ${PWD%/google3*}/google3
 }
 
+
 echo $PWD | egrep -q '^/home/nishantarora$'
-
-# Default User
-export DEFAULT_USER=`whoami`
-
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(command-not-found git git-extras history npm nyan pip pylint python sudo )
-
-# User configuration
-
-export PATH="/usr/local/google/home/nishantarora/.nave/installed/default/bin:/usr/local/google/home/nishantarora/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 source $ZSH/oh-my-zsh.sh
 

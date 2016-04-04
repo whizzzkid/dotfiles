@@ -3,6 +3,10 @@ if [ -f /etc/profile ]; then
 	source /etc/profile
 fi
 
+if [ -f /etc/bash_completion.d/g4d ]; then
+  source /etc/bash_completion.d/g4d
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -12,8 +16,6 @@ ZSH_THEME="agnoster"
 # hyphen-insensitive completion.
 HYPHEN_INSENSITIVE="true"
 
-# Correction.
-ENABLE_CORRECTION="true"
 
 # Waiting
 COMPLETION_WAITING_DOTS="true"
@@ -39,7 +41,6 @@ alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
-alias blaze=bazel
 
 #Google Settings
 setopt PROMPT_SUBST

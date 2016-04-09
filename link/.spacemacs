@@ -29,8 +29,7 @@ values."
                       auto-completion-enable-company-help-tooltip t)
      better-defaults
      c-c++
-     (colors :variables
-             colors-enable-nyan-cat-progress-bar t)
+     (colors :variables)
      eyebrowse
      emacs-lisp
      git
@@ -71,6 +70,7 @@ values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
+   exec-path-from-shell-variables '("PATH")
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
@@ -244,7 +244,7 @@ values."
                         '(javascript-jshint)))
   ;; use eslint with web-mode for jsx files
   (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;; disable json-jsonlist checking for json files
+   disable json-jsonlist checking for json files
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers
                         '(json-jsonlist)))

@@ -73,3 +73,5 @@ source $HOME'/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
 source $HOME'/google-cloud-sdk/completion.zsh.inc'
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

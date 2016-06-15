@@ -31,6 +31,7 @@ values."
      c-c++
      (colors :variables)
      gtags
+     go
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      javascript

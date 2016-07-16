@@ -26,13 +26,14 @@ function nave_install() {
 
 # Global npm modules to install.
 npm_globals=(
+  babel-cli
   bower
-  ember-cli
   grunt-cli
   grunt-init
   linken
   node-inspector
   tern
+  pushstate-server
   yo
 )
 
@@ -116,5 +117,15 @@ function npm_latest() {
     return 99
   else
     echo -e '\nAll dependencies are @latest version.'
+  fi
+}
+
+# Force npm to rewrite package.json to sort everything in the default order
+function npm-package() {
+  if [[ "$(cat package.json | grep dependencies)" ]]; then
+    npm install foo --save && npm uninstall foo --save
+  fi
+  if [[ "$(cat package.json | grep devDependencies)" ]]; then
+    npm install foo --save-dev && npm uninstall foo --save-dev
   fi
 }

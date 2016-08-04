@@ -44,6 +44,7 @@ values."
      sql
      syntax-checking
      themes-megapack
+     tide
      typescript
      version-control
      yaml
@@ -237,6 +238,7 @@ values."
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers
                         '(javascript-jshint)))
+
   ;; use eslint with web-mode for jsx files
   (flycheck-add-mode 'javascript-eslint 'web-mode)
    disable json-jsonlist checking for json files
@@ -244,18 +246,38 @@ values."
                 (append flycheck-disabled-checkers
                         '(json-jsonlist)))
 
+  ;; TS config https://github.com/ananthakumaran/tide
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  (setq company-tooltip-align-annotations t)
+  (add-hook 'before-save-hook 'tide-format-before-save)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
+  (add-hook 'js2-mode-hook #'setup-tide-mode)
+
+  ;; Yas snippet config
   (require 'yasnippet)
   (add-to-list 'yas-snippet-dirs "~/.my-snippets")
   (add-hook 'web-mode-hook #'(lambda () (yas-activate-extra-mode 'html-mode)))
   (yas-global-mode 1)
   (yas-reload-all)
 
+  ;; CSS
+  (defun my-css-mode-hook ()
+    (rainbow-mode 1))
   (add-hook 'css-mode-hook 'my-css-mode-hook)
   (add-hook 'web-mode-hook 'my-css-mode-hook)
   (add-hook 'scss-mode-hook 'my-css-mode-hook)
   (add-hook 'less-css-mode-hook 'my-css-mode-hook)
-  (defun my-css-mode-hook ()
-    (rainbow-mode 1))
 )
 
 (defun dotspacemacs/user-init ()

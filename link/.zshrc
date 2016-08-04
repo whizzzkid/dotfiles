@@ -16,19 +16,21 @@ ZSH_THEME="agnoster"
 # hyphen-insensitive completion.
 HYPHEN_INSENSITIVE="true"
 
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
 
 # Waiting
 COMPLETION_WAITING_DOTS="true"
 
 # ZSH plugins.
-plugins=(command-not-found git git-extras history npm nyan pip pylint python sudo)
+plugins=(command-not-found git git-extras history npm pip pylint python sudo)
 
 # User configuration
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export GIT_EXTERNAL_DIFF=git-gui-diff
 export DEFAULT_USER=`whoami`
-export PATH="/usr/local/google/home/nishantarora/.nave/installed/default/bin:/usr/local/google/home/nishantarora/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/home/whizzzkid/bin:/home/whizzzkid/.nave/installed/default/bin:/home/whizzzkid/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Command history.
 setopt share_history
@@ -42,19 +44,6 @@ alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
-
-#Google Settings
-setopt PROMPT_SUBST
-precmd() { PTEXT=$(echo $PWD | sed -e s/nishantarora/~/ | sed -e "s#usr/local/google#ulg#")$\ ; print -Pn "\e]0;$PTEXT\a"; }
-PROMPT='$PTEXT'
-preexec() { print -Pn "\e]0;$1\a" }
-
-cdg() {
-  cd ${PWD%/google3*}/google3
-}
-
-
-echo $PWD | egrep -q '^/home/nishantarora$'
 
 source $ZSH/oh-my-zsh.sh
 
@@ -72,3 +61,6 @@ source $HOME'/google-cloud-sdk/path.zsh.inc'
 source $HOME'/google-cloud-sdk/completion.zsh.inc'
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export NVM_DIR="/home/whizzzkid/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

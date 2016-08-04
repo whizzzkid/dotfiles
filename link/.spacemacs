@@ -264,6 +264,7 @@ values."
   (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
   (add-hook 'js2-mode-hook #'setup-tide-mode)
 
+
   ;; Yas snippet config
   (require 'yasnippet)
   (add-to-list 'yas-snippet-dirs "~/.my-snippets")
@@ -284,18 +285,7 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
-  ;; Google defaults
-  (load-file
-   "/usr/share/emacs/site-lisp/emacs-google-config/devtools/editors/emacs/google.el")
-  (require 'google3)                  ;; magically set paths for compiling google3 code
-  (require 'google3-build)            ;; support for blaze builds
-  (require 'csearch)                  ;; Search the whole Google code base.
-  (require 'google3-build)
-  (setq google-build-system "blaze")
-  (global-set-key "\C-cl" #'google-lint)   ; bind lint to control-c + l
-  (require 'google3-display-coverage)
-  (require 'google3-build-cleaner)
-  )
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.

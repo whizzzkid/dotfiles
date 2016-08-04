@@ -18,12 +18,13 @@ ENABLE_CORRECTION="true"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# ZSH plugins
-plugins=(command-not-found git git-extras history npm nyan pip pylint python sudo )
+# ZSH plugins.
+plugins=(command-not-found git git-extras history npm nyan pip pylint python sudo)
 
 # User configuration
 export DEFAULT_USER=`whoami`
 export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 export GIT_EXTERNAL_DIFF=git-gui-diff
 export LANG="en_US.UTF-8"
 export PATH="/home/whizzzkid/bin:/home/whizzzkid/.nave/installed/default/bin:/home/whizzzkid/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

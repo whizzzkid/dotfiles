@@ -5,16 +5,15 @@ gitrepo=(".emacs.d" ".dotfiles" "emacs")
 for i in "${gitrepo[@]}"
 do
   cd $HOME"/"$i
-  git pull origin master 
+  git pull origin master
   git submodule update --recursive
   cd ~
 done
 
-Updating Emacs
+echo "Updating Emacs..."
 cd $HOME"/emacs"
-./autogen.sh
-./configure
-make
+./autogen.sh all
+./configure --with-gnutls=no
 sudo make install
 cd $HOME
 

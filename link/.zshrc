@@ -30,7 +30,7 @@ export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export GIT_EXTERNAL_DIFF=git-gui-diff
 export DEFAULT_USER=`whoami`
-export PATH="$HOME/bin:$HOME/.nave/installed/default/bin:$HOME/.dotfiles/bin:$HOME/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.nave/installed/default/bin:$HOME/.dotfiles/bin:$HOME/.rvm/bin:$HOME/anaconda2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Command history.
 setopt share_history
@@ -53,6 +53,9 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='emacs -nw'
 fi
+
+# for git
+ssh-add ~/.ssh/id_rsa &>/dev/null
 
 # The next line updates PATH for the Google Cloud SDK.
 source $HOME'/google-cloud-sdk/path.zsh.inc'

@@ -56,6 +56,8 @@ fi
 
 # for git
 ssh-add ~/.ssh/id_rsa &>/dev/null
+GIT_COMMITTER_EMAIL="me@nishantarora.in"
+GIT_AUTHOR_EMAIL="me@nishantarora.in"
 
 # The next line updates PATH for the Google Cloud SDK.
 source $HOME'/google-cloud-sdk/path.zsh.inc'
@@ -65,3 +67,9 @@ source $HOME'/google-cloud-sdk/completion.zsh.inc'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/whizzzkid/google-cloud-sdk/path.zsh.inc' ]; then source '/home/whizzzkid/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc'; fi

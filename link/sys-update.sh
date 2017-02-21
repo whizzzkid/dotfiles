@@ -6,16 +6,13 @@ gitrepo=(".emacs.d" ".dotfiles" "emacs")
 # Logging time
 echo "Update Started At: $(date)"
 
-# Installing apt-fast
-apt-get install -y apt-fast
-
 # System Update
-apt-fast -y clean
-apt-fast -y update
-apt-fast -y upgrade
-apt-fast -y dist-upgrade
-apt-fast -y autoremove --purge
-apt-fast -y autoclean
+sudo apt -y clean
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y dist-upgrade
+sudo apt -y autoremove --purge
+sudo apt -y autoclean
 
 # Updating Installs from sources.
 present=$(pwd)

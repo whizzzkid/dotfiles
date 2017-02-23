@@ -30,7 +30,7 @@ export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export GIT_EXTERNAL_DIFF=git-gui-diff
 export DEFAULT_USER=`whoami`
-export PATH="$PATH:$HOME/bin:$HOME/.nave/installed/default/bin:$HOME/.dotfiles/bin:$HOME/.rvm/bin:$HOME/anaconda2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.npm-global/bin:$HOME/.rvm/bin:$HOME/.nave/installed/default/bin:$HOME/.dotfiles/bin:$HOME/.rvm/bin:$HOME/anaconda2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/etc/aws-eb-tools/eb/linux/python2.7:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Command history.
 setopt share_history
@@ -44,7 +44,10 @@ alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
+alias reboot="sudo reboot now"
+alias shutdown="sudo shutdown -h now"
 
+# Source this
 source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
@@ -58,6 +61,7 @@ fi
 ssh-add ~/.ssh/id_rsa &>/dev/null
 GIT_COMMITTER_EMAIL="me@nishantarora.in"
 GIT_AUTHOR_EMAIL="me@nishantarora.in"
+alias gitc="cd /media/whizzzkid/COMMON/git-clients/"
 
 # The next line updates PATH for the Google Cloud SDK.
 source $HOME'/google-cloud-sdk/path.zsh.inc'

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Git repos to update from source.
-gitrepo=(".emacs.d" ".dotfiles" "emacs")
+gitrepo=(".emacs.d" ".dotfiles")
 
 # Logging time
 echo "Update Started At: $(date)"
@@ -26,15 +26,6 @@ do
   git submodule update --recursive
   cd ~
 done
-
-# Building emacs from source.
-echo "Updating Emacs..."
-cd "/home/whizzzkid/emacs"
-./autogen.sh all > /dev/null
-./configure --with-gnutls=no > /dev/null
-make install > /dev/null
-cd $present
-echo "Latest Emacs Installed"
 
 # Logging finish
 echo "Update Completed At $(date)"

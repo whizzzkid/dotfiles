@@ -3,11 +3,13 @@ if [ -f /etc/profile ]; then
 	source /etc/profile
 fi
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+if [ -f /etc/bash_completion.d/g4d ]; then
+  source /etc/bash_completion.d/g4d
+fi
 
-# Theme.
-ZSH_THEME="agnoster"
+# Theme
+#ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Insensitive ti hyphens.
 HYPHEN_INSENSITIVE="true"
@@ -45,6 +47,7 @@ alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
 alias reboot="sudo reboot now"
 alias shutdown="sudo shutdown -h now"
+alias mouse="sudo rmmod psmouse && sudo modprobe -a psmouse"
 
 # Source this
 source $ZSH/oh-my-zsh.sh
@@ -69,11 +72,21 @@ source $HOME'/google-cloud-sdk/path.zsh.inc'
 # The next line enables shell command completion for gcloud.
 source $HOME'/google-cloud-sdk/completion.zsh.inc'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/whizzzkid/google-cloud-sdk/path.zsh.inc' ]; then source '/home/whizzzkid/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc'; fi
+source <(antibody init)
+
+# PowerLevel9k https://github.com/bhilburn/powerlevel9k/
+POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm node_version)
+
+POWERLEVEL9K_OS_ICON_BACKGROUND="white"
+POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"

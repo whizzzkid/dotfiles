@@ -1,0 +1,19 @@
+{
+  "window.zoomLevel": 1,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 100,
+  "workbench.colorTheme": "Material Theme",
+  "editor.wrappingIndent": "indent",
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 80,
+  "editor.detectIndentation": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    80
+  ],
+  "editor.renderWhitespace": "all",
+  "editor.trimAutoWhitespace": true,
+  "editor.insertSpaces": true
+}

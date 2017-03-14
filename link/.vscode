@@ -1,19 +1,22 @@
 {
-  "window.zoomLevel": 1,
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 100,
-  "workbench.colorTheme": "Material Theme",
-  "editor.wrappingIndent": "indent",
-  "editor.wordWrap": "on",
-  "editor.wordWrapColumn": 80,
-  "editor.detectIndentation": false,
+  "editor.fontSize": 16,
+  "editor.fontFamily": "'Ubuntu Mono', 'Hack', 'Source Code Pro Semibold', 'Noto Mono'",
   "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
   "editor.formatOnSave": true,
-  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "all",
   "editor.rulers": [
     80
   ],
-  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
-  "editor.insertSpaces": true
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 80,
+  "editor.wrappingIndent": "indent",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 100,
+  "files.trimTrailingWhitespace": true,
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Material Theme"
 }

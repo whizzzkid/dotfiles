@@ -88,6 +88,14 @@ _Tested in Ubuntu 14.04 LTS_
 
 Why? Because I often completely break this repo while updating. Which means that if I do that and you run the `dotfiles` command, your home directory will burst into flames, and you'll have to go buy a new computer. No, not really, but it will be very messy.
 
+### PreReq
+
+```
+sudo apt install git curl zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+install https://github.com/powerline/fonts
+
 ### Actual installation (for you)
 
 1. [Read my gently-worded note](#heed-this-critically-important-warning-before-you-install)

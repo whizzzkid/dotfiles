@@ -3,11 +3,6 @@ if [ -f /etc/profile ]; then
 	source /etc/profile
 fi
 
-# Google bash completions
-if [ -f /etc/bash_completion.d/g4d ]; then
-  source /etc/bash_completion.d/g4d
-fi
-
 # Theme
 ZSH_THEME="agnoster"
 
@@ -35,8 +30,10 @@ alias ls="ls --color"
 alias grep="grep --color"
 alias ..="cd .."
 alias zshrc="source ~/.zshrc; cd ~-"
+alias update="~/sys-update.sh"
 alias reboot="sudo reboot now"
 alias shutdown="sudo shutdown -h now"
+alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
 
 # Source this
 source $ZSH/oh-my-zsh.sh
@@ -45,7 +42,7 @@ source $ZSH/oh-my-zsh.sh
 ssh-add ~/.ssh/id_rsa &>/dev/null
 GIT_COMMITTER_EMAIL="me@nishantarora.in"
 GIT_AUTHOR_EMAIL="me@nishantarora.in"
-alias gitc="cd ~/git-clients"
+alias gitc="cd $GIT_CLIENTS"
 
 # I do not want to correct following commands.
 if [ -f ~/.zsh_nocorrect ]; then
@@ -59,10 +56,14 @@ source $HOME'/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
 source $HOME'/google-cloud-sdk/completion.zsh.inc'
+source <(antibody init)
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then source '$HOME/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/whizzzkid/google-cloud-sdk/path.zsh.inc' ]; then source '/home/whizzzkid/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then source '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
-source <(antibody init)
+if [ -f '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/whizzzkid/google-cloud-sdk/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

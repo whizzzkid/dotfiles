@@ -473,12 +473,7 @@ fi
 if [[ ! -d $DOTFILES ]]; then
   # Dotfiles directory doesn't exist? Clone it!
   e_header "Downloading dotfiles"
-<<<<<<< HEAD
   git clone --recursive git://github.com/${github_user:-whizzzkid}/dotfiles.git $DOTFILES
-=======
-  git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git $DOTFILES
->>>>>>> 57d02e1614145cd0b3537c8b5a2af0a9170cfbfd
   cd $DOTFILES
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.

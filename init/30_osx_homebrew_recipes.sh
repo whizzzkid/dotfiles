@@ -23,7 +23,6 @@ recipes=(
   mercurial
   nmap
   postgresql
-  powerline-go
   reattach-to-user-namespace
   sl
   smartmontools
@@ -31,9 +30,7 @@ recipes=(
   telnet
   terminal-notifier
   the_silver_searcher
-  thefuck
   tmux
-  tmux-xpanes
   tree
   wget
 )

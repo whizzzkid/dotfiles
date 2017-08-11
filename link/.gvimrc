@@ -15,7 +15,8 @@ if has('win32')
 else
   let s:uname = system("echo -n \"$(uname -s)\"")
   if s:uname == "Linux"
-    set guifont=Iosevka\ Term\ 12
+    " My favorite font!
+    set guifont=M+\ 1m\ for\ Powerline\ 13
   else " OSX
     " My favorite font!
     set guifont=M+\ 1m\ regular\ Nerd\ Font\ Complete:h16

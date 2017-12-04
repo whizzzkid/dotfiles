@@ -3,6 +3,11 @@ if [ -f /etc/profile ]; then
 	source /etc/profile
 fi
 
+if [ -f $HOME/.profile ]; then
+  source $HOME/.profile
+fi
+
+
 # Zsh
 ZSH=$HOME/.oh-my-zsh
 
@@ -37,6 +42,10 @@ alias update="~/sys-update.sh"
 alias reboot="sudo reboot now"
 alias shutdown="sudo shutdown -h now"
 alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
+mcd () {
+  mkdir "$1"
+  cd "$1"
+}
 
 # Source this
 source $ZSH/oh-my-zsh.sh

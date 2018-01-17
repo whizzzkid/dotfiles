@@ -10,7 +10,7 @@ echo "Update Started At: $(date)"
 sudo apt -y clean
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y dist-upgrade
+sudo apt -y full-upgrade
 sudo apt -y autoremove --purge
 sudo apt -y autoclean
 

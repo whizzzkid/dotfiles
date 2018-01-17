@@ -73,6 +73,7 @@ source $ZSH/oh-my-zsh.
 ssh-add ~/.ssh/id_rsa &>/dev/null
 GIT_COMMITTER_EMAIL="me@nishantarora.in"
 GIT_AUTHOR_EMAIL="me@nishantarora.in"
+GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 alias gitc="cd $GIT_CLIENTS"
 
 # I do not want to correct following commands.

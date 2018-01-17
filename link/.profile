@@ -60,7 +60,7 @@ if [ -f '$HOME/google-cloud-sdk/completion.${0##*/}.inc' ]; then
   source '$HOME/google-cloud-sdk/completion.${0##*/}.inc';
 fi
 
-CUDA="/usr/local/cuda-9.0"
+CUDA="/usr/local/cuda-9.1"
 
 # I Want these directories in my path.
 PATH_DIRS=(

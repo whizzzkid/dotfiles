@@ -75,6 +75,7 @@ PATH_DIRS=(
     /usr/local/bin
     /usr/local/games
     /usr/local/go/bin
+    /usr/local/opencv/include
     /usr/local/sbin
     /usr/sbin
     /sbin
@@ -87,7 +88,6 @@ PATH_DIRS=(
     $HOME/.npm-global/bin
     $HOME/.rvm/bin
     $HOME/.nave/installed/default/bin
-    $HOME/.opencv/include/
     $HOME/.dotfiles/bin
 )
 
@@ -100,12 +100,12 @@ export PATH=$(join_by : "${PATH_DIRS[@]}")
 
 # User configuration
 export LC_ALL="en_US.UTF-8"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA/lib64:/usr/local/lib:$HOME/.opencv/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA/lib64:/usr/local/lib:/usr/local/opencv/lib"
 export LANG="en_US.UTF-8"
 export GIT_EXTERNAL_DIFF=git-gui-diff
 export GOROOT=$HOME/go
 export GIT_CLIENTS="/mnt/SharedFS/gitc"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/.opencv/lib/pkgconfig/"
-export OpenCV_DIR="$HOME/.opencv/share/OpenCV"
-export PYTHONPATH="$PYTHONPATH:$GIT_CLIENTS/caffe/python:$GIT_CLIENTS/interactive-deep-colorization/caffe_files:$HOME/.opencv/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opencv/lib/pkgconfig/"
+export OpenCV_DIR="/usr/local/opencv/share/OpenCV"
+export PYTHONPATH="$PYTHONPATH:$GIT_CLIENTS/caffe2/build/:$GIT_CLIENTS/caffe/python:$GIT_CLIENTS/interactive-deep-colorization/caffe_files:/usr/local/opencv/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages"
 export CAFFE_ROOT="$GIT_CLIENTS/caffe/"

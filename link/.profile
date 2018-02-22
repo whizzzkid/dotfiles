@@ -60,7 +60,7 @@ if [ -f '$HOME/google-cloud-sdk/completion.${0##*/}.inc' ]; then
   source '$HOME/google-cloud-sdk/completion.${0##*/}.inc';
 fi
 
-CUDA="/usr/local/cuda-9.1"
+CUDA="/usr/local/cuda"
 
 # I Want these directories in my path.
 PATH_DIRS=(
@@ -99,6 +99,7 @@ function join_by { local IFS="$1"; shift; echo "$*"; }
 export PATH=$(join_by : "${PATH_DIRS[@]}")
 
 # User configuration
+export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:$CUDA/include"
 export LC_ALL="en_US.UTF-8"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA/lib64:/usr/local/lib:/usr/local/opencv/lib"
 export LANG="en_US.UTF-8"

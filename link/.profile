@@ -98,6 +98,29 @@ PATH_DIRS=( $(echo $(echo $PATH_DIRS) ${PATH//:/ } | tr ' ' '\n' | sort -u | tr 
 function join_by { local IFS="$1"; shift; echo "$*"; }
 export PATH=$(join_by : "${PATH_DIRS[@]}")
 
+# for git
+ssh-add ~/.ssh/id_rsa &>/dev/null
+GIT_COMMITTER_EMAIL="me@nishantarora.in"
+GIT_AUTHOR_EMAIL="me@nishantarora.in"
+GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+alias gitc="cd $GIT_CLIENTS"
+
+
+#Aliases
+alias ls="ls --color"
+alias grep="grep --color"
+alias ..="cd .."
+alias bfg="java -jar $HOME/bfg-1.13.0.jar"
+alias zshrc="source ~/.zshrc; cd ~-"
+alias update="~/sys-update.sh"
+alias reboot="sudo prime-select intel; sudo reboot now"
+alias shutdown="sudo prime-select intel; sudo shutdown -h now"
+alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
+mcd () {
+    mkdir "$1"
+    cd "$1"
+}
+
 # User configuration
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:$CUDA/include"
 export LC_ALL="en_US.UTF-8"

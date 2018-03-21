@@ -21,7 +21,8 @@ HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="true"
 
 # Waiting
-COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAI
+TING_DOTS="true"
 
 # ZSH plugins.
 plugins=(command-not-found git git-extras history npm pip pylint python sudo)
@@ -33,31 +34,10 @@ SAVEHIST=10000
 HISTFILE=~/.history
 setopt APPEND_HISTORY
 
-#Aliases
-alias ls="ls --color"
-alias grep="grep --color"
-alias ..="cd .."
-alias zshrc="source ~/.zshrc; cd ~-"
-alias update="~/sys-update.sh"
-alias reboot="sudo prime-select intel; sudo reboot now"
-alias shutdown="sudo prime-select intel; sudo shutdown -h now"
-alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
-mcd () {
-  mkdir "$1"
-  cd "$1"
-}
-
 # Source this
 source $ZSH/oh-my-zsh.sh
 
 export DEFAULT_USER=`whoami`
-
-# for git
-ssh-add ~/.ssh/id_rsa &>/dev/null
-GIT_COMMITTER_EMAIL="me@nishantarora.in"
-GIT_AUTHOR_EMAIL="me@nishantarora.in"
-GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-alias gitc="cd $GIT_CLIENTS"
 
 # I do not want to correct following commands.
 if [ -f ~/.zsh_nocorrect ]; then

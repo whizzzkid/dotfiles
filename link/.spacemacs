@@ -26,12 +26,13 @@ values."
      (auto-completion :variables
                       auto-completion-use-tab-instead-of-enter t
                       auto-completion-enable-company-help-tooltip t)
+          
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     (colors :variables)
      better-defaults
      c-c++
-     (colors :variables)
      gtags
      html
-     (ibuffer :variables ibuffer-group-buffers-by 'projects)
      javascript
      markdown
      org

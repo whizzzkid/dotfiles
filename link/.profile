@@ -8,6 +8,14 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+# Join function
+function join_by {
+    local IFS="$1";
+    shift;
+    echo "$*";
+}
+
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # Where the magic happens.
@@ -61,6 +69,7 @@ if [ -f '$HOME/google-cloud-sdk/completion.${0##*/}.inc' ]; then
 fi
 
 CUDA="/usr/local/cuda"
+GITC="/mnt/SharedFS/gitc"
 
 # I Want these directories in my path.
 PATH_DIRS=(
@@ -89,25 +98,34 @@ PATH_DIRS=(
     $HOME/.rvm/bin
     $HOME/.nave/installed/default/bin
     $HOME/.dotfiles/bin
+    $GITC/flutter/bin
 )
 
 #Merging with existing path and sorting.
 PATH_DIRS=( $(echo $(echo $PATH_DIRS) ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' ') )
 
+#Removing unnecessary dirs from path.
+CLEAN_DIRS=()
+for tmp in ${PATH_DIRS[@]}
+do
+    if [ -d "$tmp" ]; then
+        CLEAN_DIRS+=("$tmp")
+    fi
+done
+
 #Defining new $PATH
-function join_by { local IFS="$1"; shift; echo "$*"; }
-export PATH=$(join_by : "${PATH_DIRS[@]}")
+export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
 # for git
 ssh-add ~/.ssh/id_rsa &>/dev/null
 GIT_COMMITTER_EMAIL="me@nishantarora.in"
 GIT_AUTHOR_EMAIL="me@nishantarora.in"
 GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-alias gitc="cd $GIT_CLIENTS"
-
+alias gitc="cd $GITC"
 
 #Aliases
 alias ls="ls --color"
+alias tf="$GITC/vsts-tee/tf"
 alias grep="grep --color"
 alias ..="cd .."
 alias bfg="java -jar $HOME/bfg-1.13.0.jar"
@@ -122,14 +140,15 @@ mcd () {
 }
 
 # User configuration
+export CAFFE_ROOT="$GITC/caffe/"
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:$CUDA/include"
-export LC_ALL="en_US.UTF-8"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA/lib64:/usr/local/lib:/usr/local/opencv/lib"
-export LANG="en_US.UTF-8"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export GIT_EXTERNAL_DIFF=git-gui-diff
 export GOROOT=$HOME/go
-export GIT_CLIENTS="/mnt/SharedFS/gitc"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opencv/lib/pkgconfig/"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA/lib64:/usr/local/lib:/usr/local/opencv/lib"
 export OpenCV_DIR="/usr/local/opencv/share/OpenCV"
-export PYTHONPATH="$PYTHONPATH:$GIT_CLIENTS/caffe2/build/:$GIT_CLIENTS/caffe/python:$GIT_CLIENTS/interactive-deep-colorization/caffe_files:/usr/local/opencv/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages"
-export CAFFE_ROOT="$GIT_CLIENTS/caffe/"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opencv/lib/pkgconfig/"
+export PYTHONPATH="$PYTHONPATH:$GITC/caffe2/build/:$GITC/caffe/python:$GITC/interactive-deep-colorization/caffe_files:/usr/local/opencv/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages"
+export TF_DIFF_COMMAND="kdiff3 %1 %2"

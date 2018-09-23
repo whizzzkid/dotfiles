@@ -21,8 +21,7 @@ HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="true"
 
 # Waiting
-COMPLETION_WAI
-TING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # ZSH plugins.
 plugins=(command-not-found git git-extras history npm pip pylint python sudo)

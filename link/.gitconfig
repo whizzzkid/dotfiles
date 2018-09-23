@@ -56,3 +56,4 @@
   insteadOf = "heroku:"
 [push]
   default = simple
+[credential]

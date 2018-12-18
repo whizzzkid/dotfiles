@@ -88,6 +88,14 @@ _Tested in Ubuntu 14.04 LTS_
 
 Why? Because I often completely break this repo while updating. Which means that if I do that and you run the `dotfiles` command, your home directory will burst into flames, and you'll have to go buy a new computer. No, not really, but it will be very messy.
 
+### Fixing file permissions
+```
+\# blkid
+\# nano /etc/fstab
+UUID=##### /mnt/SharedFS ntfs-3g auto,users,permissions 0 0
+
+```
+
 ### PreReq
 
 ```

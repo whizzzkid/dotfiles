@@ -69,7 +69,7 @@ if [ -f '$HOME/google-cloud-sdk/completion.${0##*/}.inc' ]; then
 fi
 
 CUDA="/usr/local/cuda"
-GITC="/mnt/SharedFS/gitc"
+GITC="/mnt/c/Users/nishantarora/source/repos"
 
 # I Want these directories in my path.
 PATH_DIRS=(

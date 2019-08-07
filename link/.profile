@@ -114,7 +114,8 @@ do
 done
 
 #Defining new $PATH
-export PATH=$(join_by : "${CLEAN_DIRS[@]}")
+PATH=$(join_by : "${CLEAN_DIRS[@]}")
+export PATH="/usr/local/Cellar/emacs/26.2/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # for git
 ssh-add ~/.ssh/id_rsa &>/dev/null

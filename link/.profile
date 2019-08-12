@@ -69,7 +69,7 @@ if [ -f '$HOME/google-cloud-sdk/completion.${0##*/}.inc' ]; then
 fi
 
 CUDA="/usr/local/cuda"
-GITC="/mnt/SharedFS/gitc"
+GITC="~/gitc"
 
 # I Want these directories in my path.
 PATH_DIRS=(
@@ -81,7 +81,6 @@ PATH_DIRS=(
     /usr/lib/jvm/java-8-oracle/bin
     /usr/lib/jvm/java-8-oracle/db/bin
     /usr/lib/jvm/java-8-oracle/jre/bin
-    /usr/local/bin
     /usr/local/games
     /usr/local/go/bin
     /usr/local/opencv/include
@@ -96,7 +95,6 @@ PATH_DIRS=(
     $HOME/Android/Sdk/build-tools
     $HOME/.npm-global/bin
     $HOME/.rvm/bin
-    $HOME/.nave/installed/default/bin
     $HOME/.dotfiles/bin
     $GITC/flutter/bin
 )
@@ -115,12 +113,12 @@ done
 
 #Defining new $PATH
 PATH=$(join_by : "${CLEAN_DIRS[@]}")
-export PATH="/usr/local/Cellar/emacs/26.2/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/Cellar/emacs/26.2/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
 
 # for git
 ssh-add ~/.ssh/id_rsa &>/dev/null
-GIT_COMMITTER_EMAIL="me@nishantarora.in"
-GIT_AUTHOR_EMAIL="me@nishantarora.in"
+GIT_COMMITTER_EMAIL="nishant.arora@appdirect.com"
+GIT_AUTHOR_EMAIL="nishant.arora@appdirect.com"
 GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 alias gitc="cd $GITC"
 

@@ -56,7 +56,7 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 * APT packages and git-extras via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
 
 #### Both
-* Node.js, npm and nave via the [init/50_node.sh](init/50_node.sh) script
+* Node.js, npm and nvm via the [init/50_node.sh](init/50_node.sh) script
 
 ## Hacking my dotfiles
 
@@ -148,7 +148,7 @@ bash -c "$(curl -fsSL https://bit.ly/whizzzkid-dotfiles)" && source ~/.bashrc
 To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` subdirectory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases and functions](source). I even have a [fancy prompt](source/50_prompt.sh) that shows the current directory, time and current git/svn repo status.
 
 ## Scripts
-In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bin scripts](bin). This includes [nave](https://github.com/isaacs/nave), which is a [git submodule](vendor).
+In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bin scripts](bin).
 
 * [dotfiles][dotfiles] - (re)initialize dotfiles. It might ask for your password (for `sudo`).
 * [src](link/.bashrc#L8-18) - (re)source all files in `/source` directory

@@ -151,3 +151,5 @@ export OpenCV_DIR="/usr/local/opencv/share/OpenCV"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opencv/lib/pkgconfig/"
 export PYTHONPATH="$PYTHONPATH:$GITC/caffe2/build/:$GITC/caffe/python:$GITC/interactive-deep-colorization/caffe_files:/usr/local/opencv/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages"
 export TF_DIFF_COMMAND="kdiff3 %1 %2"
+
+[ -s "/Users/nishant.arora/.jabba/jabba.sh" ] && source "/Users/nishant.arora/.jabba/jabba.sh"

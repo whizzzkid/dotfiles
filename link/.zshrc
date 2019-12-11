@@ -7,12 +7,15 @@ if [ -f $HOME/.profile ]; then
   source $HOME/.profile
 fi
 
-
 # Zsh
 ZSH=$HOME/.oh-my-zsh
 
 # Theme
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Shorter Parg
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
 
 # hyphen-insensitive completion.
 HYPHEN_INSENSITIVE="true"
@@ -50,3 +53,5 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export NVM_DIR="/Users/nishant.arora/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[ -s "/Users/nishant.arora/.jabba/jabba.sh" ] && source "/Users/nishant.arora/.jabba/jabba.sh"

@@ -1,33 +1,35 @@
-[[ "$1" != init && ! -e ~/.nave ]] && return 1
+[[ "$1" != init && ! -e ~/.nvm ]] && return 1
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 export PATH
-PATH=~/.nave/installed/default/bin:"$(path_remove ~/.nave/installed/*/bin)"
+PATH=~/.nvm/installed/default/bin:"$(path_remove ~/.mvm/installed/*/bin)"
 
-# Set a specific version of node as the "default" for "nave use default"
-function nave_default() {
+# Set a specific version of node as the "default" for "nvm use default"
+function nvm_default() {
   local version
-  local default=${NAVE_DIR:-$HOME/.nave}/installed/default
+  local default=${NVM_DIR:-$HOME/.nvm}/installed/default
   [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
-  [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
+  [[ "$1" == "stable" ]] && version=$(nvm stable) || version=${1#v}
   rm "$default" 2>/dev/null
   ln -s $version "$default"
-  echo "Nave default set to $version"
+  echo "Nvm default set to $version"
 }
 
 # Install a version of node, set as default, install npm modules, etc.
-function nave_install() {
+function nvm_install() {
   local version
   [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
-  [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
-  if [[ ! -d "${NAVE_DIR:-$HOME/.nave}/installed/$version" ]]; then
+  [[ "$1" == "stable" ]] && version=$(nvm stable) || version=${1#v}
+  if [[ ! -d "${NVM_DIR:-$HOME/.nvm}/installed/$version" ]]; then
     e_header "Installing Node.js $version"
-    nave install $version
+    nvm install $version
   fi
-  [[ "$1" == "stable" ]] && nave_default stable && npm_install
+  [[ "$1" == "stable" ]] && nvm default stable && npm_install
 }
 
 # Use the version of node in the local .nvmrc file
-alias nvmrc='exec nave use $(<.nvmrc)'
+alias nvmrc='exec nvm use $(<.nvmrc)'
 
 # Global npm modules to install.
 npm_globals=(

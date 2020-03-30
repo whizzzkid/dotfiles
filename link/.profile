@@ -96,7 +96,7 @@ PATH_DIRS=(
     $HOME/Android/Sdk/build-tools
     $HOME/.npm-global/bin
     $HOME/.rvm/bin
-    $HOME/.nave/installed/default/bin
+    $HOME/.nvm/installed/default/bin
     $HOME/.dotfiles/bin
     $GITC/flutter/bin
 )

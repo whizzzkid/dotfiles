@@ -1,10 +1,20 @@
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' max-errors 3 numeric
+zstyle :compinstall filename '/Users/nishant.arora/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
 # source profile like .bashrc
 if [ -f /etc/profile ]; then
-	source /etc/profile
+    source /etc/profile
 fi
 
 if [ -f $HOME/.profile ]; then
-  source $HOME/.profile
+    source $HOME/.profile
 fi
 
 # Zsh
@@ -47,11 +57,3 @@ if [ -f ~/.zsh_nocorrect ]; then
         alias $COMMAND="nocorrect $COMMAND"
     done < ~/.zsh_nocorrect
 fi
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-export NVM_DIR="/Users/nishant.arora/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-[ -s "/Users/nishant.arora/.jabba/jabba.sh" ] && source "/Users/nishant.arora/.jabba/jabba.sh"

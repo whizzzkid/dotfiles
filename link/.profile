@@ -34,9 +34,9 @@ ssh-add "$HOME/.ssh/id_rsa" &>/dev/null
 alias gitc="cd $GITC"
 
 #Aliases
-alias ls="ls -G"
+alias ls="command ls -G"
 alias tf="$GITC/vsts-tee/tf"
-alias grep="grep --color"
+alias grep="command grep --color"
 alias ..="cd .."
 alias bfg="java -jar $HOME/bfg-1.13.0.jar"
 alias zshrc="source ~/.zshrc; cd ~-"
@@ -46,9 +46,11 @@ alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))
 alias vs="code --enable-proposed-api GitHub.vscode-pull-request-github"
 alias clone="git clone ";
 alias gc="git checkout ";
+alias python="/usr/local/bin/python3.8";
+alias pip="/usr/local/bin/pip3.8";
 mcd () {
     mkdir -p "$1"
-    cd "$1"
+    cd "$1" || return;
 }
 
 SOURCE_DIRS=(
@@ -78,6 +80,7 @@ PATH_DIRS=(
     /usr/local/go/bin
     /usr/local/opt/avr-gcc@8/bin
     /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
     /sbin

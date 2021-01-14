@@ -278,6 +278,13 @@ values."
   (add-hook 'web-mode-hook 'my-css-mode-hook)
   (add-hook 'scss-mode-hook 'my-css-mode-hook)
   (add-hook 'less-css-mode-hook 'my-css-mode-hook)
+
+  ;; c++
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 )
 
 (defun dotspacemacs/user-init ()

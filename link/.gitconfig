@@ -1,6 +1,7 @@
 [user]
 	name = Nishant Arora
 	email = nishant.arora@appdirect.com
+	signingkey = 6F3CC0616AAC8D84
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
@@ -66,7 +67,7 @@
   insteadOf = "heroku:"
 [push]
   default = simple
-[credential]
-	helper = osxkeychain
 [diff]
 	tool = meld
+[commit]
+	gpgsign = true

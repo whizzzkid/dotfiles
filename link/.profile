@@ -15,96 +15,91 @@ function join_by {
     echo "$*";
 }
 
+# User configuration
+export CAFFE_ROOT="$GITC/caffe/"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export GIT_AUTHOR_EMAIL="nishant.arora@appdirect.com"
+export GIT_COMMITTER_EMAIL="nishant.arora@appdirect.com"
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+export GIT_EXTERNAL_DIFF=git-gui-diff
+export GOROOT=$HOME/go
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export QMK_HOME="$HOME/.qmk"
+export TF_DIFF_COMMAND="kdiff3 %1 %2"
+export GITC="$HOME/gitc"
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # Where the magic happens.
-    export DOTFILES=~/.dotfiles
+# for git
+ssh-add "$HOME/.ssh/id_rsa" &>/dev/null
+alias gitc="cd $GITC"
 
-    # Add binaries into the path
-    export PATH="$DOTFILES/bin:$PATH"
+#Aliases
+alias ls="ls -G"
+alias tf="$GITC/vsts-tee/tf"
+alias grep="grep --color"
+alias ..="cd .."
+alias bfg="java -jar $HOME/bfg-1.13.0.jar"
+alias zshrc="source ~/.zshrc; cd ~-"
+alias reboot="sudo reboot now"
+alias shutdown="sudo shutdown -h now"
+alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
+alias vs="code --enable-proposed-api GitHub.vscode-pull-request-github"
+alias clone="git clone ";
+alias gc="git checkout ";
+mcd () {
+    mkdir -p "$1"
+    cd "$1"
+}
 
-    # Source all files in "source"
-    function src() {
-        local file
-        if [[ "$1" ]]; then
-            source "$DOTFILES/source/$1.sh"
-        else
-            for file in $DOTFILES/source/*; do
-                source "$file"
-            done
-        fi
-    }
+SOURCE_DIRS=(
+    "$HOME/.rvm/scripts/rvm"
+    "$HOME/google-cloud-sdk/path.${0##*/}.inc"
+    "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
+    "$HOME/.jabba/jabba.sh"
+    "$NVM_DIR/nvm.sh"
+    "$NVM_DIR/bash_completion"
+)
 
-    # Run dotfiles script, then source.
-    function dotfiles() {
-        $DOTFILES/bin/dotfiles "$@" && src
-    }
-
-    src
-fi
-
-# if running zsh
-if [ -n "$ZSH_VERSION" ]; then
-    :
-fi
-
-# Load Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Load Ruby Version Manager
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Google Cloud SDK
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '$HOME/google-cloud-sdk/path.${0##*/}.inc' ]; then
-  source '$HOME/google-cloud-sdk/path.${0##*/}.inc';
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '$HOME/google-cloud-sdk/completion.${0##*/}.inc' ]; then
-  source '$HOME/google-cloud-sdk/completion.${0##*/}.inc';
-fi
-
-CUDA="/usr/local/cuda"
-GITC="~/gitc"
+# Source everything.
+for src in "${SOURCE_DIRS[@]}"
+do
+    [[ -s "$src" ]] && source "$src"
+done
 
 # I Want these directories in my path.
 PATH_DIRS=(
     /bin
-    /etc/aws-eb-tools/eb/linux/python2.7
     /usr/bin
     /usr/games
     /usr/lib/ccache
-    /usr/lib/jvm/java-8-oracle/bin
-    /usr/lib/jvm/java-8-oracle/db/bin
-    /usr/lib/jvm/java-8-oracle/jre/bin
+    /usr/local/bin
+    /usr/local/Cellar/emacs/26.2/bin
     /usr/local/games
     /usr/local/go/bin
-    /usr/local/opencv/include
+    /usr/local/opt/avr-gcc@8/bin
+    /usr/local/opt/coreutils/libexec/gnubin
     /usr/local/sbin
     /usr/sbin
     /sbin
-    $CUDA/bin
     $GOROOT/bin
-    $HOME/bin
-    $HOME/.local/bin
     $HOME/Android/Sdk/platform-tools
     $HOME/Android/Sdk/build-tools
+    $HOME/bin
+    $HOME/.gem/ruby/2.7.0/bin
+    $HOME/.local/bin
     $HOME/.npm-global/bin
     $HOME/.rvm/bin
     $HOME/.dotfiles/bin
+    $HOME/Library/Python/3.7/bin
     $GITC/flutter/bin
 )
 
 #Merging with existing path and sorting.
-PATH_DIRS=( $(echo $(echo $PATH_DIRS) ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' ') )
+PATH_DIRS=( $(echo $(echo "$PATH_DIRS") ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' ') )
 
 #Removing unnecessary dirs from path.
 CLEAN_DIRS=()
-for tmp in ${PATH_DIRS[@]}
+for tmp in "${PATH_DIRS[@]}"
 do
     if [ -d "$tmp" ]; then
         CLEAN_DIRS+=("$tmp")
@@ -112,44 +107,4 @@ do
 done
 
 #Defining new $PATH
-PATH=$(join_by : "${CLEAN_DIRS[@]}")
-export PATH="/usr/local/Cellar/emacs/26.2/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
-
-# for git
-ssh-add ~/.ssh/id_rsa &>/dev/null
-GIT_COMMITTER_EMAIL="nishant.arora@appdirect.com"
-GIT_AUTHOR_EMAIL="nishant.arora@appdirect.com"
-GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-alias gitc="cd $GITC"
-
-#Aliases
-alias ls="ls --color"
-alias tf="$GITC/vsts-tee/tf"
-alias grep="grep --color"
-alias ..="cd .."
-alias bfg="java -jar $HOME/bfg-1.13.0.jar"
-alias zshrc="source ~/.zshrc; cd ~-"
-alias update="~/sys-update.sh"
-alias reboot="sudo prime-select intel; sudo reboot now"
-alias shutdown="sudo prime-select intel; sudo shutdown -h now"
-alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
-mcd () {
-    mkdir "$1"
-    cd "$1"
-}
-
-# User configuration
-export CAFFE_ROOT="$GITC/caffe/"
-export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:$CUDA/include"
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export GIT_EXTERNAL_DIFF=git-gui-diff
-export GOROOT=$HOME/go
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA/lib64:/usr/local/lib:/usr/local/opencv/lib"
-export OpenCV_DIR="/usr/local/opencv/share/OpenCV"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opencv/lib/pkgconfig/"
-export PYTHONPATH="$PYTHONPATH:$GITC/caffe2/build/:$GITC/caffe/python:$GITC/interactive-deep-colorization/caffe_files:/usr/local/opencv/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages"
-export TF_DIFF_COMMAND="kdiff3 %1 %2"
-
-[ -s "/Users/nishant.arora/.jabba/jabba.sh" ] && source "/Users/nishant.arora/.jabba/jabba.sh"
+export PATH=$(join_by : "${CLEAN_DIRS[@]}")

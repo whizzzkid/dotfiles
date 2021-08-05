@@ -9,10 +9,10 @@
 #umask 022
 
 # Join function
-function join_by {
-    local IFS="$1";
-    shift;
-    echo "$*";
+function join_by() {
+    local IFS="$1"
+    shift
+    echo "$*"
 }
 
 # User configuration
@@ -21,8 +21,9 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export GIT_AUTHOR_EMAIL="nishant.arora@appdirect.com"
 export GIT_COMMITTER_EMAIL="nishant.arora@appdirect.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-export GIT_EXTERNAL_DIFF=git-gui-diff
-export GOROOT=$HOME/go
+export GIT_EXTERNAL_DIFF="git-gui-diff"
+export GOPATH="$HOME/go"
+export NVM_DIR="$HOME/.nvm"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export QMK_HOME="$HOME/.qmk"
@@ -42,29 +43,27 @@ alias bfg="java -jar $HOME/bfg-1.13.0.jar"
 alias zshrc="source ~/.zshrc; cd ~-"
 alias reboot="sudo reboot now"
 alias shutdown="sudo shutdown -h now"
-alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
-alias vs="code --enable-proposed-api GitHub.vscode-pull-request-github"
-alias clone="git clone ";
-alias gc="git checkout ";
-alias python="/usr/local/bin/python3.8";
-alias pip="/usr/local/bin/pip3.8";
-mcd () {
+alias makeinstall="make -j $(($(sysctl -n hw.physicalcpu) + 1)); sudo make install -j $(($(sysctl -n hw.physicalcpu) + 1))"
+alias vs="codium"
+alias clone="git clone "
+alias gc="git switch -c "
+alias python="/usr/local/bin/python3.8"
+alias pip="/usr/local/bin/pip3.8"
+mcd() {
     mkdir -p "$1"
-    cd "$1" || return;
+    cd "$1" || return
 }
 
 SOURCE_DIRS=(
     "$HOME/.rvm/scripts/rvm"
     "$HOME/google-cloud-sdk/path.${0##*/}.inc"
     "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
-    "$HOME/.jabba/jabba.sh"
     "$NVM_DIR/nvm.sh"
     "$NVM_DIR/bash_completion"
 )
 
 # Source everything.
-for src in "${SOURCE_DIRS[@]}"
-do
+for src in "${SOURCE_DIRS[@]}"; do
     [[ -s "$src" ]] && source "$src"
 done
 
@@ -83,6 +82,8 @@ PATH_DIRS=(
     /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
+    /opt/homebrew/bin/
+    /opt/homebrew/Cellar/jabba/0.11.2:
     /sbin
     $GOROOT/bin
     $HOME/Android/Sdk/platform-tools
@@ -98,12 +99,11 @@ PATH_DIRS=(
 )
 
 #Merging with existing path and sorting.
-PATH_DIRS=( $(echo $(echo "$PATH_DIRS") ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' ') )
+PATH_DIRS=($(echo $(echo "$PATH_DIRS") ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
 #Removing unnecessary dirs from path.
 CLEAN_DIRS=()
-for tmp in "${PATH_DIRS[@]}"
-do
+for tmp in "${PATH_DIRS[@]}"; do
     if [ -d "$tmp" ]; then
         CLEAN_DIRS+=("$tmp")
     fi

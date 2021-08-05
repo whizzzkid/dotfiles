@@ -58,3 +58,9 @@ Desktop.ini
 .swo
 .*.swp
 .*.swo
+
+# VScode
+.vscode
+
+# Idea
+.idea

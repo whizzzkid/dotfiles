@@ -15,6 +15,12 @@ function join_by() {
     echo "$*"
 }
 
+arch_name="$(uname -m)"
+alias brew="/opt/homebrew/bin/brew"
+if [ "${arch_name}" = "x86_64" ]; then
+    alias brew="/usr/local/bin/brew"
+fi
+
 # User configuration
 export CAFFE_ROOT="$GITC/caffe/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
@@ -29,6 +35,19 @@ export LC_ALL="en_US.UTF-8"
 export QMK_HOME="$HOME/.qmk"
 export TF_DIFF_COMMAND="kdiff3 %1 %2"
 export GITC="$HOME/gitc"
+export LDFLAGS="\
+    -L$(xcrun --show-sdk-path)/usr/lib \
+    -L$(brew --prefix bzip2)/lib \
+    -L$(brew --prefix readline)/lib \
+    -L$(brew --prefix openssl)/lib \
+    -L$(brew --prefix zlib)/lib"
+
+export CPPFLAGS="\
+    -I$(xcrun --show-sdk-path)/usr/include \
+    -I$(brew --prefix bzip2)/include \
+    -I$(brew --prefix readline)/include \
+    -I$(brew --prefix openssl)/include \
+    -I$(brew --prefix zlib)/include"
 
 # for git
 ssh-add "$HOME/.ssh/id_rsa" &>/dev/null
@@ -47,8 +66,6 @@ alias makeinstall="make -j $(($(sysctl -n hw.physicalcpu) + 1)); sudo make insta
 alias vs="codium"
 alias clone="git clone "
 alias gc="git switch -c "
-alias python="/usr/local/bin/python3.8"
-alias pip="/usr/local/bin/pip3.8"
 mcd() {
     mkdir -p "$1"
     cd "$1" || return
@@ -76,25 +93,24 @@ PATH_DIRS=(
     /usr/local/bin
     /usr/local/Cellar/emacs/26.2/bin
     /usr/local/games
-    /usr/local/go/bin
     /usr/local/opt/avr-gcc@8/bin
     /usr/local/opt/coreutils/libexec/gnubin
     /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
     /opt/homebrew/bin/
-    /opt/homebrew/Cellar/jabba/0.11.2:
+    /opt/homebrew/Cellar/jabba/0.11.2/bin
+    /opt/homebrew/opt/bzip2/bin
     /sbin
-    $GOROOT/bin
-    $HOME/Android/Sdk/platform-tools
-    $HOME/Android/Sdk/build-tools
-    $HOME/bin
+    $HOME/.dotfiles/bin
     $HOME/.gem/ruby/2.7.0/bin
     $HOME/.local/bin
     $HOME/.npm-global/bin
+    $HOME/.pyenv/bin
     $HOME/.rvm/bin
-    $HOME/.dotfiles/bin
-    $HOME/Library/Python/3.7/bin
+    $HOME/Android/Sdk/build-tools
+    $HOME/Android/Sdk/platform-tools
+    $HOME/bin
     $GITC/flutter/bin
 )
 
@@ -111,3 +127,10 @@ done
 
 #Defining new $PATH
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
+
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init --path)"
+fi
+
+# Snap Travel
+alias st="python /Users/nishant.arora/gitc/snap/devops/st.py"

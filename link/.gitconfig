@@ -1,7 +1,7 @@
 [user]
 	name = Nishant Arora
-	email = nishant.arora@appdirect.com
-	signingkey = 6F3CC0616AAC8D84
+	email = me@nishantarora.in
+	signingkey = 02BB077EF4E25F53
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space

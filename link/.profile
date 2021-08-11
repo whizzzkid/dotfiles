@@ -130,6 +130,7 @@ export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init --path)"
+    alias pyenv="SDKROOT=$(xcrun --show-sdk-path) MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion) pyenv"
 fi
 
 # Snap Travel

@@ -24,8 +24,8 @@ fi
 # User configuration
 export CAFFE_ROOT="$GITC/caffe/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export GIT_AUTHOR_EMAIL="nishant.arora@appdirect.com"
-export GIT_COMMITTER_EMAIL="nishant.arora@appdirect.com"
+export GIT_AUTHOR_EMAIL="nishant.arora@gusto.com"
+export GIT_COMMITTER_EMAIL="nishant.arora@gusto.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 export GIT_EXTERNAL_DIFF="git-gui-diff"
 export GOPATH="$HOME/go"
@@ -35,6 +35,11 @@ export LC_ALL="en_US.UTF-8"
 export QMK_HOME="$HOME/.qmk"
 export TF_DIFF_COMMAND="kdiff3 %1 %2"
 export GITC="$HOME/gitc"
+export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
+export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/index'
+export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
+export VSCODE_GALLERY_CONTROL_URL=''
+export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
 export LDFLAGS="\
     -L$(xcrun --show-sdk-path)/usr/lib \
     -L$(brew --prefix bzip2)/lib \
@@ -112,6 +117,7 @@ PATH_DIRS=(
     $HOME/Android/Sdk/platform-tools
     $HOME/bin
     $GITC/flutter/bin
+    $GITC/gusto/updog/bin
 )
 
 #Merging with existing path and sorting.

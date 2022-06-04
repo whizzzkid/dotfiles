@@ -43,6 +43,7 @@ export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/in
 export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
 export VSCODE_GALLERY_CONTROL_URL=''
 export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
+export HOMEBREW_AUTO_UPDATE_SECS="86400"
 export LDFLAGS="\
     -L$(xcrun --show-sdk-path)/usr/lib \
     -L$(brew --prefix bzip2)/lib \
@@ -66,12 +67,13 @@ alias ls="command ls -G"
 alias tf="$GITC/vsts-tee/tf"
 alias grep="command grep --color"
 alias ..="cd .."
+alias macq="xattr -d com.apple.quarantine"
 alias bfg="java -jar $HOME/bfg-1.13.0.jar"
 alias zshrc="source ~/.zshrc; cd ~-"
 alias reboot="sudo reboot now"
 alias shutdown="sudo shutdown -h now"
 alias makeinstall="make -j $(($(sysctl -n hw.physicalcpu) + 1)); sudo make install -j $(($(sysctl -n hw.physicalcpu) + 1))"
-alias vs="codium"
+alias vs="code"
 alias clone="git clone "
 alias gc="git switch -c "
 mcd() {
@@ -140,12 +142,12 @@ done
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
 [ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
 
 if [[ $CI == "true" ]]; then
-  echo "Not loading nvm bash completion: executed in CI pipeline (\$CI is true)"
+    echo "Not loading nvm bash completion: executed in CI pipeline (\$CI is true)"
 else
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 fi
 
 # Fig post block. Keep at the bottom of this file.

@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/profile.pre.bash"
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -24,8 +26,8 @@ fi
 # User configuration
 export CAFFE_ROOT="$GITC/caffe/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export GIT_AUTHOR_EMAIL="nishant.arora@gusto.com"
-export GIT_COMMITTER_EMAIL="nishant.arora@gusto.com"
+export GIT_AUTHOR_EMAIL="me@nishantarora.in"
+export GIT_COMMITTER_EMAIL="me@nishantarora.in"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 export GIT_EXTERNAL_DIFF="git-gui-diff"
 export GOPATH="$HOME/go"
@@ -56,7 +58,7 @@ export CPPFLAGS="\
     -I$(brew --prefix zlib)/include"
 
 # for git
-ssh-add "$HOME/.ssh/id_ed25519_gusto" &>/dev/null
+ssh-add "$HOME/.ssh/id_ed25519" &>/dev/null
 alias gitc="cd $GITC"
 
 #Aliases
@@ -121,7 +123,6 @@ PATH_DIRS=(
     $HOME/Android/Sdk/platform-tools
     $HOME/bin
     $HOME/Library/Python/3.8/bin
-    $GITC/gusto/updog/bin
 )
 
 #Merging with existing path and sorting.
@@ -147,6 +148,5 @@ else
   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 fi
 
-for f in $HOME/.gusto; do
-   . $f
-done
+# Fig post block. Keep at the bottom of this file.
+. "$HOME/.fig/shell/profile.post.bash"

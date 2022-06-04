@@ -1,4 +1,5 @@
-
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/bashrc.pre.bash"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -10,3 +11,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export YVM_DIR=~/.yvm
 [ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
+
+# Fig post block. Keep at the bottom of this file.
+. "$HOME/.fig/shell/bashrc.post.bash"

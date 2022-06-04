@@ -1,7 +1,7 @@
 [user]
 	name = Nishant Arora
 	email = nishant.arora@gusto.com
-	signingkey = 169797D53BE6B357
+	signingkey = 0EE01BEA6BE6BEE3
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
@@ -71,3 +71,5 @@
 	tool = meld
 [commit]
 	gpgsign = true
+[gpg]
+	program = gpg

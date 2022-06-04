@@ -17,4 +17,3 @@ if (( ${#pip_packages[@]} > 0 )); then
     pip install "$package"
   done
 fi
-

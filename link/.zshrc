@@ -48,6 +48,21 @@ SAVEHIST=10000
 HISTFILE=~/.history
 setopt APPEND_HISTORY
 
+#Aliases
+# Aliases
+alias ls="ls --color"
+alias grep="grep --color"
+alias ..="cd .."
+alias zshrc="source ~/.zshrc; cd ~-"
+alias update="~/sys-update.sh"
+alias reboot="sudo prime-select intel; sudo reboot now"
+alias shutdown="sudo prime-select intel; sudo shutdown -h now"
+alias makeinstall="make -j $(($(nproc)+1)); sudo make install -j $(($(nproc)+1))"
+mcd () {
+  mkdir "$1"
+  cd "$1"
+}
+
 # Source this
 source $ZSH/oh-my-zsh.sh
 

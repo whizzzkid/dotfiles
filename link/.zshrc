@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/zshrc.pre.zsh"
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -37,7 +39,7 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
 # ZSH plugins.
-plugins=(command-not-found git git-extras history npm pip pylint python sudo)
+plugins=(command-not-found git git-extras gpg-agent history keychain npm pip pylint python sudo)
 
 # Command history.
 setopt share_history
@@ -49,11 +51,14 @@ setopt APPEND_HISTORY
 # Source this
 source $ZSH/oh-my-zsh.sh
 
-export DEFAULT_USER=`whoami`
+export DEFAULT_USER=$(whoami)
 
 # I do not want to correct following commands.
 if [ -f ~/.zsh_nocorrect ]; then
     while read -r COMMAND; do
         alias $COMMAND="nocorrect $COMMAND"
-    done < ~/.zsh_nocorrect
+    done <~/.zsh_nocorrect
 fi
+
+# Fig post block. Keep at the bottom of this file.
+. "$HOME/.fig/shell/zshrc.post.zsh"

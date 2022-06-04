@@ -30,6 +30,7 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 export GIT_EXTERNAL_DIFF="git-gui-diff"
 export GOPATH="$HOME/go"
 export NVM_DIR="$HOME/.nvm"
+export YVM_DIR="$HOME/.yvm"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export QMK_HOME="$HOME/.qmk"
@@ -55,7 +56,7 @@ export CPPFLAGS="\
     -I$(brew --prefix zlib)/include"
 
 # for git
-ssh-add "$HOME/.ssh/id_rsa" &>/dev/null
+ssh-add "$HOME/.ssh/id_ed25519_gusto" &>/dev/null
 alias gitc="cd $GITC"
 
 #Aliases
@@ -82,6 +83,7 @@ SOURCE_DIRS=(
     "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
     "$NVM_DIR/nvm.sh"
     "$NVM_DIR/bash_completion"
+    "$YVM_DIR/yvm.sh"
 )
 
 # Source everything.
@@ -100,6 +102,8 @@ PATH_DIRS=(
     /usr/local/games
     /usr/local/opt/avr-gcc@8/bin
     /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/imagemagick@6/bin
+    /usr/local/opt/mysql@5.7/bin
     /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
@@ -111,12 +115,12 @@ PATH_DIRS=(
     $HOME/.gem/ruby/2.7.0/bin
     $HOME/.local/bin
     $HOME/.npm-global/bin
-    $HOME/.pyenv/bin
     $HOME/.rvm/bin
+    $HOME/.rvm/gems/ruby-2.7.0/bin
     $HOME/Android/Sdk/build-tools
     $HOME/Android/Sdk/platform-tools
     $HOME/bin
-    $GITC/flutter/bin
+    $HOME/Library/Python/3.8/bin
     $GITC/gusto/updog/bin
 )
 
@@ -134,10 +138,15 @@ done
 #Defining new $PATH
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
-    alias pyenv="SDKROOT=$(xcrun --show-sdk-path) MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion) pyenv"
+[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+
+if [[ $CI == "true" ]]; then
+  echo "Not loading nvm bash completion: executed in CI pipeline (\$CI is true)"
+else
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 fi
 
-# Snap Travel
-alias st="python /Users/nishant.arora/gitc/snap/devops/st.py"
+for f in $HOME/.gusto; do
+   . $f
+done

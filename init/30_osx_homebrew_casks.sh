@@ -22,6 +22,8 @@ casks=(
   android-platform-tools
   battle-net
   bettertouchtool
+  betterzip
+  caprine
   charles
   chromium
   chronosync
@@ -39,8 +41,10 @@ casks=(
   messenger-for-desktop
   midi-monitor
   moom
+  ngrok
+  numi
   omnidisksweeper
-  race-for-the-galaxy
+  postman
   reaper
   robo-3t
   screenhero
@@ -55,11 +59,11 @@ casks=(
   tower
   vagrant
   virtualbox
+  visual-studio-code
   vlc
   ynab
   yujitach-menumeters
   # Quick Look plugins
-  betterzipql
   qlcolorcode
   qlmarkdown
   qlprettypatch
@@ -88,7 +92,6 @@ if (( ${#casks[@]} > 0 )); then
   for cask in "${casks[@]}"; do
     brew cask install $cask
   done
-  brew cask cleanup
 fi
 
 # Work around colorPicker symlink issue.

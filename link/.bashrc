@@ -1,7 +1,8 @@
-# Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/bashrc.pre.bash"
+# source profile like .bashrc
+if [ -f /etc/profile ]; then
+    source /etc/profile
+fi
 
-src
-
-# Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/bashrc.post.bash"
+if [ -f $HOME/.profile ]; then
+    source $HOME/.profile
+fi

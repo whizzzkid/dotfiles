@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/profile.pre.bash"
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -24,14 +22,16 @@ if [ "${arch_name}" = "x86_64" ]; then
 fi
 
 # User configuration
+export BUN_INSTALL="$HOME/.bun"
 export CAFFE_ROOT="$GITC/caffe/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export GIT_AUTHOR_EMAIL="me@nishantarora.in"
-export GIT_COMMITTER_EMAIL="me@nishantarora.in"
+export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
+export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 export GIT_EXTERNAL_DIFF="git-gui-diff"
 export GOPATH="$HOME/go"
 export NVM_DIR="$HOME/.nvm"
+export RVM_DIR="$HOME/.rvm"
 export YVM_DIR="$HOME/.yvm"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -87,6 +87,7 @@ SOURCE_DIRS=(
     "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
     "$NVM_DIR/nvm.sh"
     "$NVM_DIR/bash_completion"
+    "$RVM_DIR/scripts/rvm"
     "$YVM_DIR/yvm.sh"
 )
 
@@ -112,6 +113,7 @@ PATH_DIRS=(
     /usr/local/sbin
     /usr/sbin
     /opt/homebrew/bin/
+    /opt/homebrew/sbin/
     /opt/homebrew/Cellar/jabba/0.11.2/bin
     /opt/homebrew/opt/bzip2/bin
     /sbin
@@ -119,12 +121,12 @@ PATH_DIRS=(
     $HOME/.gem/ruby/2.7.0/bin
     $HOME/.local/bin
     $HOME/.npm-global/bin
-    $HOME/.rvm/bin
-    $HOME/.rvm/gems/ruby-2.7.0/bin
     $HOME/Android/Sdk/build-tools
     $HOME/Android/Sdk/platform-tools
     $HOME/bin
     $HOME/Library/Python/3.8/bin
+    $BUN_INSTALL/bin
+    $RVM_DIR/bin
 )
 
 #Merging with existing path and sorting.
@@ -141,14 +143,13 @@ done
 #Defining new $PATH
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
+# Load completions
 [ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
 if [[ $CI == "true" ]]; then
     echo "Not loading nvm bash completion: executed in CI pipeline (\$CI is true)"
 else
     [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 fi
-
-# Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/profile.post.bash"

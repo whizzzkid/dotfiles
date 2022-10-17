@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/zshrc.pre.zsh"
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -59,6 +57,3 @@ if [ -f ~/.zsh_nocorrect ]; then
         alias $COMMAND="nocorrect $COMMAND"
     done <~/.zsh_nocorrect
 fi
-
-# Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/zshrc.post.zsh"

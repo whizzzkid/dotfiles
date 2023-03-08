@@ -2,3 +2,4 @@ bazel
 git
 make
 cmake
+test

@@ -47,13 +47,16 @@ export HOMEBREW_AUTO_UPDATE_SECS="86400"
 export LDFLAGS="\
     -L$(xcrun --show-sdk-path)/usr/lib \
     -L$(brew --prefix bzip2)/lib \
-    -L$(brew --prefix readline)/lib \
+    -L$(brew --prefix imagemagick)/lib \
     -L$(brew --prefix openssl)/lib \
-    -L$(brew --prefix zlib)/lib"
+    -L$(brew --prefix readline)/lib \
+    -L$(brew --prefix zlib)/lib \
+    -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
 
 export CPPFLAGS="\
     -I$(xcrun --show-sdk-path)/usr/include \
     -I$(brew --prefix bzip2)/include \
+    -I$(brew --prefix imagemagick)/include \
     -I$(brew --prefix readline)/include \
     -I$(brew --prefix openssl)/include \
     -I$(brew --prefix zlib)/include"

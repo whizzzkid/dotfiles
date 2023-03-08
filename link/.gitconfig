@@ -1,7 +1,7 @@
 [user]
 	name = Nishant Arora
 	email = 1895906+whizzzkid@users.noreply.github.com
-	signingkey = 0EE01BEA6BE6BEE3
+	signingkey = 76864877A0F37377
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
@@ -73,3 +73,11 @@
 	gpgsign = true
 [gpg]
 	program = gpg
+[pull]
+	rebase = true
+	ff = only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

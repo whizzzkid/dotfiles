@@ -3,11 +3,10 @@ module.exports = {
   handlers: [
     {
       match: /^https?:\/\/.*gusto.*$/,
-      browser: "Google Chrome"
-    },
-    {
-      match: /^https?:\/\/.*ipfs.*$/,
-      browser: "Google Chrome"
+      browser: {
+        name: "Google Chrome",
+        profile: "Profile 3"
+      }
     }
   ]
 }

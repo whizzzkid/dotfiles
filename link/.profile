@@ -29,21 +29,22 @@ export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 export GIT_EXTERNAL_DIFF="git-gui-diff"
+export GITC="$HOME/gitc"
 export GOPATH="$HOME/go"
-export NVM_DIR="$HOME/.nvm"
-export RVM_DIR="$HOME/.rvm"
-export YVM_DIR="$HOME/.yvm"
+export HOMEBREW_AUTO_UPDATE_SECS="86400"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+export NVM_DIR="$HOME/.nvm"
 export QMK_HOME="$HOME/.qmk"
+export RUST_DIR="$HOME/.cargo"
+export RVM_DIR="$HOME/.rvm"
 export TF_DIFF_COMMAND="kdiff3 %1 %2"
-export GITC="$HOME/gitc"
-export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
 export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/index'
-export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
 export VSCODE_GALLERY_CONTROL_URL=''
+export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
 export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
-export HOMEBREW_AUTO_UPDATE_SECS="86400"
+export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
+export YVM_DIR="$HOME/.yvm"
 export LDFLAGS="\
     -L$(xcrun --show-sdk-path)/usr/lib \
     -L$(brew --prefix bzip2)/lib \
@@ -90,6 +91,7 @@ SOURCE_DIRS=(
     "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
     "$NVM_DIR/nvm.sh"
     "$NVM_DIR/bash_completion"
+    "$RUST_DIR/env"
     "$RVM_DIR/scripts/rvm"
     "$YVM_DIR/yvm.sh"
 )
@@ -129,6 +131,7 @@ PATH_DIRS=(
     $HOME/bin
     $HOME/Library/Python/3.8/bin
     $BUN_INSTALL/bin
+    $RUST_DIR/bin
     $RVM_DIR/bin
 )
 

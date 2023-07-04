@@ -25,6 +25,7 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export CAFFE_ROOT="$GITC/caffe/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DVM_DIR="$HOME/.dvm"
 export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
@@ -93,13 +94,7 @@ SOURCE_DIRS=(
     "$NVM_DIR/bash_completion"
     "$RUST_DIR/env"
     "$RVM_DIR/scripts/rvm"
-    "$YVM_DIR/yvm.sh"
 )
-
-# Source everything.
-for src in "${SOURCE_DIRS[@]}"; do
-    [[ -s "$src" ]] && source "$src"
-done
 
 # I Want these directories in my path.
 PATH_DIRS=(
@@ -114,6 +109,7 @@ PATH_DIRS=(
     /usr/local/opt/coreutils/libexec/gnubin
     /usr/local/opt/imagemagick@6/bin
     /usr/local/opt/mysql@5.7/bin
+    /usr/local/opt/nvm/nvm.sh
     /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
@@ -131,9 +127,22 @@ PATH_DIRS=(
     $HOME/bin
     $HOME/Library/Python/3.8/bin
     $BUN_INSTALL/bin
+    $DVM_DIR/bin
     $RUST_DIR/bin
     $RVM_DIR/bin
 )
+
+SETUP_SCRIPTS=(
+    $BUN_INSTALL/_bun
+    /usr/local/opt/nvm/etc/bash_completion.d/nvm.sh
+    $HOME/.sdkman/bin/sdkman-init.sh
+    $YVM_DIR/yvm.sh
+)
+
+# Source everything.
+for src in "${SOURCE_DIRS[@]}"; do
+    [[ -s "$src" ]] && source "$src"
+done
 
 #Merging with existing path and sorting.
 PATH_DIRS=($(echo $(echo "$PATH_DIRS") ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' '))
@@ -149,13 +158,6 @@ done
 #Defining new $PATH
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
-# Load completions
-[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
-[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
-
-if [[ $CI == "true" ]]; then
-    echo "Not loading nvm bash completion: executed in CI pipeline (\$CI is true)"
-else
-    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-fi
+for script in "${SETUP_SCRIPTS[@]}"; do
+    [[ -s "$script" ]] && . "$script"
+done

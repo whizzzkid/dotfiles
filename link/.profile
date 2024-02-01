@@ -15,17 +15,15 @@ function join_by() {
     echo "$*"
 }
 
-arch_name="$(uname -m)"
-alias brew="/opt/homebrew/bin/brew"
-if [ "${arch_name}" = "x86_64" ]; then
-    alias brew="/usr/local/bin/brew"
-fi
-
 # User configuration
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export BREW_HOME="/opt/homebrew"
+export BREW_INSTALLS="$BREW_HOME/opt"
 export BUN_INSTALL="$HOME/.bun"
 export CAFFE_ROOT="$GITC/caffe/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DVM_DIR="$HOME/.dvm"
+export GEM_HOME="$HOME/.gem"
 export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
@@ -36,9 +34,12 @@ export HOMEBREW_AUTO_UPDATE_SECS="86400"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export NVM_DIR="$HOME/.nvm"
+export PYENV_ROOT="$HOME/.pyenv"
 export QMK_HOME="$HOME/.qmk"
 export RUST_DIR="$HOME/.cargo"
 export RVM_DIR="$HOME/.rvm"
+export SDKMAN_DIR="$HOME/.sdkman"
+export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 export TF_DIFF_COMMAND="kdiff3 %1 %2"
 export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/index'
 export VSCODE_GALLERY_CONTROL_URL=''
@@ -46,22 +47,36 @@ export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
 export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
 export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
 export YVM_DIR="$HOME/.yvm"
-export LDFLAGS="\
-    -L$(xcrun --show-sdk-path)/usr/lib \
-    -L$(brew --prefix bzip2)/lib \
-    -L$(brew --prefix imagemagick)/lib \
-    -L$(brew --prefix openssl)/lib \
-    -L$(brew --prefix readline)/lib \
-    -L$(brew --prefix zlib)/lib \
-    -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
 
-export CPPFLAGS="\
-    -I$(xcrun --show-sdk-path)/usr/include \
-    -I$(brew --prefix bzip2)/include \
-    -I$(brew --prefix imagemagick)/include \
-    -I$(brew --prefix readline)/include \
-    -I$(brew --prefix openssl)/include \
-    -I$(brew --prefix zlib)/include"
+alias brew="$BREW_HOME/bin/brew"
+if [ "${arch_name}" = "x86_64" ]; then
+    alias brew="/usr/local/bin/brew"
+fi
+
+export LDFLAGS="                                                                        \
+    -L$(brew --prefix bzip2)/lib                                                        \
+    -L$(brew --prefix imagemagick@6)/lib                                           x     \
+    -L$(brew --prefix llvm)/lib                                                         \
+    -L$(brew --prefix llvm)/lib/c++ -Wl,-rpath,$(brew --prefix llvm)/lib/c++            \
+    -L$(brew --prefix openssl)/lib                                                      \
+    -L$(brew --prefix readline)/lib                                                     \
+    -L$(brew --prefix zlib)/lib                                                         \
+    -L$(xcrun --show-sdk-path)/usr/lib                                                  \
+"
+
+export CPPFLAGS="                                                                       \
+    -I$(brew --prefix bzip2)/include                                                    \
+    -I$(brew --prefix imagemagick@6)/include                                            \
+    -I$(brew --prefix llvm)/include                                                     \
+    -I$(brew --prefix openjdk)/include                                                  \
+    -I$(brew --prefix openssl)/include                                                  \
+    -I$(brew --prefix readline)/include                                                 \
+    -I$(brew --prefix zlib)/include                                                     \
+    -I$(xcrun --show-sdk-path)/usr/include                                              \
+"
+
+# for brew
+arch_name="$(uname -m)"
 
 # for git
 ssh-add "$HOME/.ssh/id_ed25519" &>/dev/null
@@ -87,7 +102,7 @@ mcd() {
 }
 
 SOURCE_DIRS=(
-    "$HOME/.rvm/scripts/rvm"
+    "$BUN_INSTALL/_bun"
     "$HOME/google-cloud-sdk/path.${0##*/}.inc"
     "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
     "$NVM_DIR/nvm.sh"
@@ -113,23 +128,29 @@ PATH_DIRS=(
     /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
-    /opt/homebrew/bin/
-    /opt/homebrew/sbin/
-    /opt/homebrew/Cellar/jabba/0.11.2/bin
-    /opt/homebrew/opt/bzip2/bin
     /sbin
+    $ANDROID_HOME/build-tools/33.0.0
+    $ANDROID_HOME/cmdline-tools/latest/bin
+    $ANDROID_HOME/emulator/bin64
+    $ANDROID_HOME/platform-tools
+    $BREW_HOME/bin
+    $BREW_HOME/sbin
+    $BREW_INSTALLS/bzip2/bin
+    $BREW_INSTALLS/imagemagick@6/bin
+    $BREW_INSTALLS/llvm/bin
+    $BREW_INSTALLS/openjdk/bin
+    $BUN_INSTALL/bin
+    $DVM_DIR/bin
+    $HOME
     $HOME/.dotfiles/bin
     $HOME/.gem/ruby/2.7.0/bin
     $HOME/.local/bin
     $HOME/.npm-global/bin
-    $HOME/Android/Sdk/build-tools
-    $HOME/Android/Sdk/platform-tools
     $HOME/bin
-    $HOME/Library/Python/3.8/bin
-    $BUN_INSTALL/bin
-    $DVM_DIR/bin
+    $PYENV_ROOT/shims
     $RUST_DIR/bin
     $RVM_DIR/bin
+    $RVM_DIR/gems/default/bin
 )
 
 SETUP_SCRIPTS=(

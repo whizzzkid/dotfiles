@@ -57,6 +57,3 @@ if [ -f ~/.zsh_nocorrect ]; then
         alias $COMMAND="nocorrect $COMMAND"
     done <~/.zsh_nocorrect
 fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"

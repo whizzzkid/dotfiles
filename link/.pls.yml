@@ -1,0 +1,57 @@
+constants:
+  symlink:
+    ok:
+      sep: -->
+      style: green
+    broken:
+      sep: ~~>
+      style: red bold
+    cyclic:
+      sep: \<-> # '<' must be escaped
+      style: yellow italic
+    error:
+      sep: -x-
+      style: red italic
+icons:
+  javascript: "󰌞" # nf-md-language_javascript
+  typescript: "󰛦" # nf-md-language_typescript
+  vue: "" # nf-seti-vue
+  react: "" # nf-seti-react
+  python: "" # nf-seti-python
+specs:
+  - pattern: \.py$
+    icon: python
+    style: rgb(255,212,59)
+  - pattern: requirements.*\.txt$
+    icon: lock
+  - pattern: ^(pyproject\.toml|Pipfile)$
+    icon: package
+  - pattern: ^poetry\.lock$
+    icon: lock
+    importance: -1
+    collapse:
+      name: pyproject.toml
+  - pattern: ^Pipfile.lock$
+    icon: lock
+    importance: -1
+    collapse:
+      name: Pipfile
+  - pattern: \.ts$
+    icon: typescript
+    style: rgb(49,120,198)
+  - pattern: \.(c|m)?js$
+    icon: javascript
+    style: rgb(247,223,30)
+  - pattern: \.vue$
+    icon: vue
+    style: rgb(79,192,141)
+  - pattern: \.(j|t)sx$
+    icon: react
+    style: rgb(97,218,251)
+  - pattern: ^package-lock\.json$
+    icon: package
+  - pattern: ^(pnpm-lock.yaml|package-lock.json)$
+    icon: lock
+    importance: -1
+    collapse:
+      name: package.json

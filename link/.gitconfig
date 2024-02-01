@@ -1,7 +1,6 @@
 [user]
 	name = Nishant Arora
 	email = 1895906+whizzzkid@users.noreply.github.com
-	signingkey = 76864877A0F37377
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
@@ -73,6 +72,7 @@
 	gpgsign = true
 [gpg]
 	program = gpg
+	format = ssh
 [pull]
 	rebase = true
 	ff = only
@@ -81,3 +81,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[init]
+	defaultBranch = main
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

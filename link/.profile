@@ -114,30 +114,28 @@ SOURCE_DIRS=(
 # I Want these directories in my path.
 PATH_DIRS=(
     /bin
+    /sbin
     /usr/bin
     /usr/games
     /usr/lib/ccache
     /usr/local/bin
     /usr/local/Cellar/emacs/26.2/bin
     /usr/local/games
-    /usr/local/opt/avr-gcc@8/bin
-    /usr/local/opt/coreutils/libexec/gnubin
-    /usr/local/opt/imagemagick@6/bin
-    /usr/local/opt/mysql@5.7/bin
-    /usr/local/opt/nvm/nvm.sh
-    /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
-    /sbin
     $ANDROID_HOME/build-tools/33.0.0
     $ANDROID_HOME/cmdline-tools/latest/bin
     $ANDROID_HOME/emulator/bin64
     $ANDROID_HOME/platform-tools
     $BREW_HOME/bin
     $BREW_HOME/sbin
+    $BREW_INSTALLS/avr-gcc@8/bin
     $BREW_INSTALLS/bzip2/bin
+    $BREW_INSTALLS/coreutils/libexec/gnubin
+    $BREW_INSTALLS/imagemagick@6/bin
     $BREW_INSTALLS/imagemagick@6/bin
     $BREW_INSTALLS/llvm/bin
+    $BREW_INSTALLS/nvm
     $BREW_INSTALLS/openjdk/bin
     $BUN_INSTALL/bin
     $DVM_DIR/bin
@@ -154,8 +152,8 @@ PATH_DIRS=(
 )
 
 SETUP_SCRIPTS=(
+    $BREW_INSTALLS/nvm/etc/bash_completion.d/nvm
     $BUN_INSTALL/_bun
-    /usr/local/opt/nvm/etc/bash_completion.d/nvm.sh
     $HOME/.sdkman/bin/sdkman-init.sh
     $YVM_DIR/yvm.sh
 )
@@ -182,3 +180,25 @@ export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 for script in "${SETUP_SCRIPTS[@]}"; do
     [[ -s "$script" ]] && . "$script"
 done
+
+# Load nvm based on nvmrc
+autoload -U add-zsh-hook
+load-nvmrc() {
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
+
+    if [ -n "$nvmrc_path" ]; then
+        local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+        if [ "$nvmrc_node_version" = "N/A" ]; then
+        nvm install
+        elif [ "$nvmrc_node_version" != "$node_version" ]; then
+        nvm use
+        fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+        echo "Reverting to nvm default version"
+        nvm use default
+    fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc

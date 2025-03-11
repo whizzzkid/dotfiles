@@ -15,71 +15,55 @@ function join_by() {
     echo "$*"
 }
 
-# User configuration
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export BREW_HOME="/opt/homebrew"
-export BREW_INSTALLS="$BREW_HOME/opt"
-export BUN_INSTALL="$HOME/.bun"
-export CAFFE_ROOT="$GITC/caffe/"
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export DVM_DIR="$HOME/.dvm"
-export GEM_HOME="$HOME/.gem"
-export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
-export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
-export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-export GIT_EXTERNAL_DIFF="git-gui-diff"
-export GITC="$HOME/gitc"
-export GOPATH="$HOME/go"
-export HOMEBREW_AUTO_UPDATE_SECS="86400"
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export NVM_DIR="$HOME/.nvm"
-export PYENV_ROOT="$HOME/.pyenv"
-export QMK_HOME="$HOME/.qmk"
-export RUST_DIR="$HOME/.cargo"
-export RVM_DIR="$HOME/.rvm"
-export SDKMAN_DIR="$HOME/.sdkman"
-export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-export TF_DIFF_COMMAND="kdiff3 %1 %2"
-export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/index'
-export VSCODE_GALLERY_CONTROL_URL=''
-export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
-export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
-export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
-export YVM_DIR="$HOME/.yvm"
-
-alias brew="$BREW_HOME/bin/brew"
+arch_name="$(uname -m)"
+alias brew="/opt/homebrew/bin/brew"
 if [ "${arch_name}" = "x86_64" ]; then
     alias brew="/usr/local/bin/brew"
 fi
 
-export LDFLAGS="                                                                        \
-    -L$(brew --prefix bzip2)/lib                                                        \
-    -L$(brew --prefix imagemagick@6)/lib                                           x     \
-    -L$(brew --prefix llvm)/lib                                                         \
-    -L$(brew --prefix llvm)/lib/c++ -Wl,-rpath,$(brew --prefix llvm)/lib/c++            \
-    -L$(brew --prefix openssl)/lib                                                      \
-    -L$(brew --prefix readline)/lib                                                     \
-    -L$(brew --prefix zlib)/lib                                                         \
-    -L$(xcrun --show-sdk-path)/usr/lib                                                  \
-"
+# User configuration
+export EDITOR="code -w"
+export CPATH=$(xcrun --show-sdk-path)/usr/include
+export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
+export CAFFE_ROOT="$GITC/caffe/"
+export COMMITTER_AUTO_FIX=true
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
+export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+export GIT_EXTERNAL_DIFF="git-gui-diff"
+export GOPATH="$HOME/go"
+export LESSOPEN="|/opt/homebrew/bin/lesspipe.sh %s"
+export NVM_DIR="$HOME/.nvm"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export QMK_HOME="$HOME/.qmk"
+export TF_DIFF_COMMAND="kdiff3 %1 %2"
+export GITC="$HOME/gitc"
+export PYENV_ROOT="$HOME/.pyenv"
+export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
+export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/index'
+export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
+export VSCODE_GALLERY_CONTROL_URL=''
+export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
+export LDFLAGS="\
+    -L$(xcrun --show-sdk-path)/usr/lib \
+    -L$(brew --prefix bzip2)/lib \
+    -L$(brew --prefix readline)/lib \
+    -L$(brew --prefix zlib)/lib \
+    -L$(brew --prefix openssl@3.0)/lib \
+    -L$(brew --prefix llvm)/lib \
+    -L$(brew --prefix curl)/lib"
 
-export CPPFLAGS="                                                                       \
-    -I$(brew --prefix bzip2)/include                                                    \
-    -I$(brew --prefix imagemagick@6)/include                                            \
-    -I$(brew --prefix llvm)/include                                                     \
-    -I$(brew --prefix openjdk)/include                                                  \
-    -I$(brew --prefix openssl)/include                                                  \
-    -I$(brew --prefix readline)/include                                                 \
-    -I$(brew --prefix zlib)/include                                                     \
-    -I$(xcrun --show-sdk-path)/usr/include                                              \
-"
+export CPPFLAGS="\
+    -I$(xcrun --show-sdk-path)/usr/include \
+    -I$(brew --prefix bzip2)/include \
+    -I$(brew --prefix readline)/include \
+    -I$(brew --prefix zlib)/include \
+    -I$(brew --prefix openssl@3.0)/include \
+    -I$(brew --prefix llvm)/include \
+    -I$(brew --prefix curl)/include"
 
-# for brew
-arch_name="$(uname -m)"
-
-# for git
-ssh-add "$HOME/.ssh/id_ed25519" &>/dev/null
 alias gitc="cd $GITC"
 
 #Aliases
@@ -87,7 +71,6 @@ alias ls="command ls -G"
 alias tf="$GITC/vsts-tee/tf"
 alias grep="command grep --color"
 alias ..="cd .."
-alias macq="xattr -d com.apple.quarantine"
 alias bfg="java -jar $HOME/bfg-1.13.0.jar"
 alias zshrc="source ~/.zshrc; cd ~-"
 alias reboot="sudo reboot now"
@@ -101,67 +84,41 @@ mcd() {
     cd "$1" || return
 }
 
-SOURCE_DIRS=(
-    "$BUN_INSTALL/_bun"
-    "$HOME/google-cloud-sdk/path.${0##*/}.inc"
-    "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
-    "$NVM_DIR/nvm.sh"
-    "$NVM_DIR/bash_completion"
-    "$RUST_DIR/env"
-    "$RVM_DIR/scripts/rvm"
-)
-
 # I Want these directories in my path.
 PATH_DIRS=(
     /bin
-    /sbin
     /usr/bin
     /usr/games
     /usr/lib/ccache
-    /usr/local/bin
     /usr/local/Cellar/emacs/26.2/bin
     /usr/local/games
+    /usr/local/opt/avr-gcc@8/bin
+    /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/imagemagick@6/bin
+    /usr/local/opt/mysql@5.7/bin
+    /usr/local/opt/tomcat@7/bin
     /usr/local/sbin
     /usr/sbin
-    $ANDROID_HOME/build-tools/33.0.0
-    $ANDROID_HOME/cmdline-tools/latest/bin
-    $ANDROID_HOME/emulator/bin64
-    $ANDROID_HOME/platform-tools
-    $BREW_HOME/bin
-    $BREW_HOME/sbin
-    $BREW_INSTALLS/avr-gcc@8/bin
-    $BREW_INSTALLS/bzip2/bin
-    $BREW_INSTALLS/coreutils/libexec/gnubin
-    $BREW_INSTALLS/imagemagick@6/bin
-    $BREW_INSTALLS/imagemagick@6/bin
-    $BREW_INSTALLS/llvm/bin
-    $BREW_INSTALLS/nvm
-    $BREW_INSTALLS/openjdk/bin
-    $BUN_INSTALL/bin
-    $DVM_DIR/bin
-    $HOME
+    /opt/homebrew/bin/
+    /opt/homebrew/sbin
+    /opt/homebrew/Cellar/jabba/0.11.2/bin
+    /opt/homebrew/opt/bzip2/bin
+    /sbin
+    $(brew --prefix python)/libexec/bin
+    $(brew --prefix gnu-tar)/libexec/gnubin
+    $(brew --prefix postgresql@16)/bin
+    $(brew --prefix gnu-getopt)/bin
+    $(brew --prefix bash)/bin
     $HOME/.dotfiles/bin
-    $HOME/.gem/ruby/2.7.0/bin
     $HOME/.local/bin
     $HOME/.npm-global/bin
+    $HOME/.pyenv/bin
+    $HOME/.pyenv/shims
+    $HOME/Android/Sdk/build-tools
+    $HOME/Android/Sdk/platform-tools
+    $HOME/Library/Python/3.8/bin
     $HOME/bin
-    $PYENV_ROOT/shims
-    $RUST_DIR/bin
-    $RVM_DIR/bin
-    $RVM_DIR/gems/default/bin
 )
-
-SETUP_SCRIPTS=(
-    $BREW_INSTALLS/nvm/etc/bash_completion.d/nvm
-    $BUN_INSTALL/_bun
-    $HOME/.sdkman/bin/sdkman-init.sh
-    $YVM_DIR/yvm.sh
-)
-
-# Source everything.
-for src in "${SOURCE_DIRS[@]}"; do
-    [[ -s "$src" ]] && source "$src"
-done
 
 #Merging with existing path and sorting.
 PATH_DIRS=($(echo $(echo "$PATH_DIRS") ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' '))
@@ -177,28 +134,34 @@ done
 #Defining new $PATH
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
 
-for script in "${SETUP_SCRIPTS[@]}"; do
-    [[ -s "$script" ]] && . "$script"
+export PATH="/usr/local/bin:$PATH"
+
+SOURCE_DIRS=(
+    "$HOME/google-cloud-sdk/path.${0##*/}.inc"
+    "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
+    "$NVM_DIR/nvm.sh"
+    "$NVM_DIR/bash_completion"
+    "$HOME/.colima/zsh_completion"
+    "$(brew --prefix git-extras)/share/git-extras/git-extras-completion.zsh"
+)
+
+# Source everything.
+for src in "${SOURCE_DIRS[@]}"; do
+    [[ -s "$src" ]] && source "$src"
 done
 
-# Load nvm based on nvmrc
-autoload -U add-zsh-hook
-load-nvmrc() {
-    local node_version="$(nvm version)"
-    local nvmrc_path="$(nvm_find_nvmrc)"
+# ngrok
+if command -v ngrok &>/dev/null; then
+    eval "$(ngrok completion)"
+fi
 
-    if [ -n "$nvmrc_path" ]; then
-        local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+# pyenv
+if command -v pyenv &>/dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
-        if [ "$nvmrc_node_version" = "N/A" ]; then
-        nvm install
-        elif [ "$nvmrc_node_version" != "$node_version" ]; then
-        nvm use
-        fi
-    elif [ "$node_version" != "$(nvm version default)" ]; then
-        echo "Reverting to nvm default version"
-        nvm use default
-    fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+# mise
+if [[ -s "$HOME/.local/bin/mise" ]]; then
+    eval "$($HOME/.local/bin/mise activate zsh)"
+fi

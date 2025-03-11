@@ -1,11 +1,12 @@
 [user]
-	name = Nishant Arora
-	email = 1895906+whizzzkid@users.noreply.github.com
+  name = Nishant Arora
+  email = 1895906+whizzzkid@users.noreply.github.com
+  signingkey = ssh-ed25519
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
-	editor = nano
+  editor = nano
 [apply]
   whitespace = fix
 [alias]
@@ -20,10 +21,10 @@
   rv = review
   st = status
   ksdiff = difftool -y -t Meld
-	fpush = push
-	stash = stash
-	unstash = stash
-	nvc = commit
+  fpush = push
+  stash = stash
+  unstash = stash
+  nvc = commit
 [color]
   ui = auto
 [color "branch"]
@@ -41,20 +42,9 @@
   untracked = cyan
 [merge]
   log = true
-  tool = meld
-[diff]
-  tool = meld
-[difftool]
-  prompt = false
-[difftool "Meld"]
-  trustExitCode = true
-  cmd = open -W -a Meld --args \"$LOCAL\" \"$PWD/$REMOTE\"
-[mergetool "meld"]
-  trustExitCode = true
-  cmd = open -W -a Meld --args --auto-merge \"$PWD/$LOCAL\" \"$PWD/$BASE\" \"$PWD/$REMOTE\" --output=\"$PWD/$MERGED\"
 [rerere]
-	enabled = true
-	autoUpdate = true
+  enabled = true
+  autoUpdate = true
 [url "git@github.com:"]
   insteadOf = "gh:"
   pushInsteadOf = "github:"
@@ -69,28 +59,49 @@
   insteadOf = "gist:"
 [url "git@heroku.com:"]
   insteadOf = "heroku:"
-[push]
-	default = current
-[diff]
-	tool = meld
 [commit]
-	gpgsign = true
+  gpgsign = true
+  verbose = true
 [gpg]
-	program = gpg
-	format = ssh
+  format = ssh
 [pull]
-	rebase = true
-	ff = only
+  rebase = true
+  ff = only
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 [fetch]
-	writeCommitGraph = true
+  writeCommitGraph = true
 [branch]
-	sort = -committerdate
+  sort = -committerdate
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[help]
+  autocorrect = prompt
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true

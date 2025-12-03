@@ -22,7 +22,9 @@ if [ "${arch_name}" = "x86_64" ]; then
 fi
 
 # User configuration
-export EDITOR="code -w"
+export EDITOR="nano"
+export IDE="cursor"
+export VISUAL="code"
 export CPATH=$(xcrun --show-sdk-path)/usr/include
 export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 export CAFFE_ROOT="$GITC/caffe/"
@@ -31,16 +33,13 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export GIT_AUTHOR_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_COMMITTER_EMAIL="1895906+whizzzkid@users.noreply.github.com"
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-export GIT_EXTERNAL_DIFF="git-gui-diff"
 export GOPATH="$HOME/go"
 export LESSOPEN="|/opt/homebrew/bin/lesspipe.sh %s"
-export NVM_DIR="$HOME/.nvm"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export QMK_HOME="$HOME/.qmk"
 export TF_DIFF_COMMAND="kdiff3 %1 %2"
 export GITC="$HOME/gitc"
-export PYENV_ROOT="$HOME/.pyenv"
 export VSCODE_GALLERY_SERVICE_URL='https://marketplace.visualstudio.com/_apis/public/gallery'
 export VSCODE_GALLERY_CACHE_URL='https://vscode.blob.core.windows.net/gallery/index'
 export VSCODE_GALLERY_ITEM_URL='https://marketplace.visualstudio.com/items'
@@ -72,7 +71,6 @@ alias tf="$GITC/vsts-tee/tf"
 alias grep="command grep --color"
 alias ..="cd .."
 alias bfg="java -jar $HOME/bfg-1.13.0.jar"
-alias zshrc="source ~/.zshrc; cd ~-"
 alias reboot="sudo reboot now"
 alias shutdown="sudo shutdown -h now"
 alias makeinstall="make -j $(($(sysctl -n hw.physicalcpu) + 1)); sudo make install -j $(($(sysctl -n hw.physicalcpu) + 1))"
@@ -86,42 +84,40 @@ mcd() {
 
 # I Want these directories in my path.
 PATH_DIRS=(
-    /bin
-    /usr/bin
-    /usr/games
-    /usr/lib/ccache
-    /usr/local/Cellar/emacs/26.2/bin
-    /usr/local/games
-    /usr/local/opt/avr-gcc@8/bin
-    /usr/local/opt/coreutils/libexec/gnubin
-    /usr/local/opt/imagemagick@6/bin
-    /usr/local/opt/mysql@5.7/bin
-    /usr/local/opt/tomcat@7/bin
-    /usr/local/sbin
-    /usr/sbin
-    /opt/homebrew/bin/
-    /opt/homebrew/sbin
-    /opt/homebrew/Cellar/jabba/0.11.2/bin
-    /opt/homebrew/opt/bzip2/bin
-    /sbin
-    $(brew --prefix python)/libexec/bin
-    $(brew --prefix gnu-tar)/libexec/gnubin
-    $(brew --prefix postgresql@16)/bin
-    $(brew --prefix gnu-getopt)/bin
-    $(brew --prefix bash)/bin
-    $HOME/.dotfiles/bin
-    $HOME/.local/bin
-    $HOME/.npm-global/bin
-    $HOME/.pyenv/bin
-    $HOME/.pyenv/shims
-    $HOME/Android/Sdk/build-tools
-    $HOME/Android/Sdk/platform-tools
-    $HOME/Library/Python/3.8/bin
-    $HOME/bin
+	/bin
+	/usr/bin
+	/usr/games
+	/usr/lib/ccache
+	/usr/local/Cellar/emacs/26.2/bin
+	/usr/local/games
+	/usr/local/opt/avr-gcc@8/bin
+	/usr/local/opt/coreutils/libexec/gnubin
+	/usr/local/opt/imagemagick@6/bin
+	/usr/local/opt/mysql@5.7/bin
+	/usr/local/opt/tomcat@7/bin
+	/usr/local/sbin
+	/usr/sbin
+	/opt/homebrew/bin/
+	/opt/homebrew/sbin
+	/opt/homebrew/Cellar/jabba/0.11.2/bin
+	/opt/homebrew/opt/bzip2/bin
+	/sbin
+	$(brew --prefix python)/libexec/bin
+	$(brew --prefix gnu-tar)/libexec/gnubin
+	$(brew --prefix postgresql@16)/bin
+	$(brew --prefix gnu-getopt)/bin
+	$(brew --prefix bash)/bin
+	$HOME/.dotfiles/bin
+	$HOME/.local/bin
+	$HOME/.npm-global/bin
+	$HOME/Android/Sdk/build-tools
+	$HOME/Android/Sdk/platform-tools
+	$HOME/Library/Python/3.8/bin
+	$HOME/bin
 )
 
 #Merging with existing path and sorting.
-PATH_DIRS=($(echo $(echo "$PATH_DIRS") ${PATH//:/ } | tr ' ' '\n' | sort -u | tr '\n' ' '))
+PATH_DIRS=($(echo $(echo "$PATH_DIRS") "${PATH//:/ }" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
 #Removing unnecessary dirs from path.
 CLEAN_DIRS=()
@@ -133,35 +129,28 @@ done
 
 #Defining new $PATH
 export PATH=$(join_by : "${CLEAN_DIRS[@]}")
-
-export PATH="/usr/local/bin:$PATH"
+export CURRENT_SHELL=$(ps -o comm= $$ | sed 's/[^a-zA-Z0-9]//g')
 
 SOURCE_DIRS=(
-    "$HOME/google-cloud-sdk/path.${0##*/}.inc"
-    "$HOME/google-cloud-sdk/completion.${0##*/}.inc"
-    "$NVM_DIR/nvm.sh"
-    "$NVM_DIR/bash_completion"
-    "$HOME/.colima/zsh_completion"
-    "$(brew --prefix git-extras)/share/git-extras/git-extras-completion.zsh"
+	"$HOME/google-cloud-sdk/path.${CURRENT_SHELL}.inc"
+	"$HOME/google-cloud-sdk/completion.${CURRENT_SHELL}.inc"
+	"$HOME/.colima/${CURRENT_SHELL}_completion"
+	"$(brew --prefix git-extras)/share/git-extras/git-extras-completion.${CURRENT_SHELL}"
 )
 
 # Source everything.
 for src in "${SOURCE_DIRS[@]}"; do
-    [[ -s "$src" ]] && source "$src"
+	[[ -s "$src" ]] && source "$src"
 done
-
-# ngrok
-if command -v ngrok &>/dev/null; then
-    eval "$(ngrok completion)"
-fi
-
-# pyenv
-if command -v pyenv &>/dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
 
 # mise
 if [[ -s "$HOME/.local/bin/mise" ]]; then
-    eval "$($HOME/.local/bin/mise activate zsh)"
+	eval "$("$HOME"/.local/bin/mise activate "$CURRENT_SHELL")"
+fi
+
+# Machine specific profiles.
+if [[ -d "$HOME/.profiles" ]]; then
+  for f in "$HOME/.profiles/"*; do
+    [[ -f "$f" ]] && source "$f"
+  done
 fi

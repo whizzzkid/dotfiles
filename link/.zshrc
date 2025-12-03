@@ -51,15 +51,10 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+setopt NO_CORRECT_ALL;
+setopt CORRECT;
 
 # Source this
 source $ZSH/oh-my-zsh.sh
 
 export DEFAULT_USER=$(whoami)
-
-# I do not want to correct following commands.
-if [ -f ~/.zsh_nocorrect ]; then
-    while read -r COMMAND; do
-        alias $COMMAND="nocorrect $COMMAND"
-    done <~/.zsh_nocorrect
-fi

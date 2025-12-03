@@ -1,7 +1,7 @@
 [user]
   name = Nishant Arora
   email = 1895906+whizzzkid@users.noreply.github.com
-  signingkey = ssh-ed25519
+  signingkey = ssh-ed25519 
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
@@ -20,11 +20,15 @@
   rb = rbranch
   rv = review
   st = status
-  ksdiff = difftool -y -t Meld
   fpush = push
   stash = stash
   unstash = stash
   nvc = commit
+  wtt = "!f() { path=\"worktrees/$1\"; git worktree add --track -b \"$1\" \"$path\" origin/$1; WT=\"$path\" ./worktree.sh; }; f"
+  wtb = "!f() { path=\"worktrees/$1\"; git worktree add -b \"$1\" \"$path\" \"${2:-main}\"; WT=\"$path\" ./worktree.sh; }; f"
+  wta = "!f() { path=\"worktrees/$1\"; git worktree add \"$path\" \"$1\"; WT=\"$path\" ./worktree.sh; }; f"
+  wtr = "!f() { path=\"worktrees/$1\"; git worktree remove \"$path\"; }; f"
+  wtl = "!f() { git worktree list; }; f"
 [color]
   ui = auto
 [color "branch"]
@@ -42,6 +46,7 @@
   untracked = cyan
 [merge]
   log = true
+	tool = cursor
 [rerere]
   enabled = true
   autoUpdate = true
@@ -91,6 +96,7 @@
   colorMoved = plain
   mnemonicPrefix = true
   renames = true
+	tool = cursor
 [push]
   default = simple
   autoSetupRemote = true
@@ -105,3 +111,9 @@
   autoSquash = true
   autoStash = true
   updateRefs = true
+[difftool "cursor"]
+	cmd = cursor --wait --diff
+[mergetool "cursor"]
+	cmd = cursor --wait $MERGED
+[maintenance]
+	repo = /Users/nishant.arora/gitc/gusto/web
